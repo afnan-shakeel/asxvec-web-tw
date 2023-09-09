@@ -12,8 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
-import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+// import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+// import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 const stats = [
   { id: 1, name: 'Transactions every 24 hours', value: '44 million' },
   { id: 2, name: 'Assets under holding', value: '$119 trillion' },

@@ -121,7 +121,7 @@
 </template>
   
 <script setup lang="ts">
-import { PhotoIcon, UserCircleIcon } from '@heroicons/vue/24/solid'
+import { PhotoIcon } from '@heroicons/vue/24/solid'
 import {
     TransitionRoot,
     TransitionChild,

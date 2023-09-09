@@ -106,7 +106,6 @@
   </template>
   
   <script setup lang="ts">
-  import { ref } from 'vue'
   import {
     TransitionRoot,
     TransitionChild,
@@ -115,7 +114,7 @@
     DialogTitle,
   } from '@headlessui/vue'
   
-  const props = defineProps(['post'])
+  defineProps(['post'])
   const emits = defineEmits(['close-blog', 'edit-post'])
   function closeModal() {
     emits('close-blog')
