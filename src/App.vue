@@ -1,18 +1,11 @@
 <template>
-  <!--
-    This example requires updating your template:
 
-    ```
-    <html class="h-full bg-gray-100">
-    <body class="h-full">
-    ```
-  -->
-<SessionLayout></SessionLayout>
-<!-- <router-view></router-view> -->
+<!-- <SessionLayout></SessionLayout> -->
+<component :is="$route.meta.layout || 'div'"></component>
 </template>
 
 <script setup lang="ts">
-import SessionLayout from "./layouts/SessionLayout.vue"
+// import SessionLayout from "./layouts/SessionLayout.vue"
 import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
 

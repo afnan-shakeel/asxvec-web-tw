@@ -8,7 +8,7 @@
   ```
 -->
   <div class="min-h-full">
-    <nav class="bg-white">
+    <nav class="bg-white drop-shadow-md">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center">
@@ -99,7 +99,7 @@
                     id="user-menu-item-0">Your Profile</a>
                   <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
                     id="user-menu-item-1">Settings</a>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                  <a href="#" @click="signOut()" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
                     id="user-menu-item-2">Sign out</a>
                 </div>
               </div>
@@ -165,20 +165,19 @@
               Profile</a>
             <a href="#"
               class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
-            <a href="#"
-              class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign
-              out</a>
+            <a href="#" @click="signOut()"
+              class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign out</a>
           </div>
         </div>
       </div>
     </nav>
 
-    <header class="bg-slate-100">
+    <header class="bg-black">
       <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{pageHeader}}</h1>
+        <h1 class="text-3xl font-bold tracking-tight text-green-900">{{pageHeader}}</h1>
       </div>
     </header>
-    <main class="bg-slate-100">
+    <main class="bg-gradient-to-br from-black to-green-900">
       <div class="min-h-screen mx-auto max-w-7xl py-4 sm:px-6 lg:px-6">
         <!-- Your content -->
         <router-view></router-view>
@@ -199,19 +198,9 @@ const mobileMenu = ref(false)
 const menusList = ref([
   {
     id: 1,
-    title: "Dashboard",
+    title: "Profile",
     isActive: false,
-    to:"/dashboard"
-  },
-  {
-    id: 2,
-    title: "Pages",
-    isActive: false,
-    subMenu: [
-      { id:1, title: "Form", to:"/form" },
-      { id:2, title: "User Management", to:"/user" },
-
-    ]
+    to:"/profile"
   },
   {
     id: 3,
@@ -231,6 +220,16 @@ const menusList = ref([
     isActive: false,
     to:"/reports",
   },
+  {
+    id: 2,
+    title: "Pages",
+    isActive: false,
+    subMenu: [
+      // { id:1, title: "Form", to:"/form" },
+      { id:2, title: "User Management", to:"/user" },
+  
+    ]
+  },
 ])
 
 const pageHeader = ref(route.name)
@@ -242,6 +241,10 @@ const routeTo = (index: number, to: any, item: any)=>{
   console.log(item)
   mobileMenu.value = false
   // pageHeader.value = route.name
+}
+const signOut = ()=>{
+  window.sessionStorage.clear()
+  router.push('/')
 }
 </script>
 

@@ -1,0 +1,32 @@
+anonymous:
+	data.user.accessToken
+	data.user.isAnonymous: boolean true
+	data.user.providerData []
+
+
+password:
+	data.user.accessToken
+	data.user.isAnonymous: boolean fasle
+	data.user.providerData  = {
+ 	   "providerId": "password",
+    "uid": "afnanshakeel@gmail.com",
+    "displayName": null,
+    "email": "afnanshakeel@gmail.com",
+    "phoneNumber": null,
+    "photoURL": null
+}
+	
+
+google:	
+	data.user.accessToken
+	data.user.isAnonymous: boolean fasle
+	emailVerified = true
+provderData
+{
+    "providerId": "google.com",
+    "uid": "106586263909033408817",
+    "displayName": "Afnan Shakeel",
+    "email": "afnanshakeel@gmail.com",
+    "phoneNumber": null,
+    "photoURL": "https://lh3.googleusercontent.com/a/ACg8ocJFvjDikC_6VlYfXxr5y4MtMh1d7eTGtYtT1Tfq_0CIHoBl=s96-c"
+}

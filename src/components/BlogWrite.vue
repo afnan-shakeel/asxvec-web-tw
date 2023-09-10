@@ -44,7 +44,7 @@
                                                     <label for="country"
                                                         class="block text-sm font-medium leading-6 text-gray-900">Topic</label>
                                                     <div class="mt-2">
-                                                        <select id="country" name="country" autocomplete="country-name"
+                                                        <select 
                                                             v-model="postForm.topic_tags"
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                                             <option value="career">Career</option>
@@ -70,7 +70,7 @@
                                                     <label for="about"
                                                         class="block text-sm font-medium leading-6 text-gray-900">Context</label>
                                                     <div class="mt-2">
-                                                        <textarea id="about" name="about" rows="5"
+                                                        <textarea rows="5"
                                                             v-model="postForm.context"
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                     </div>
@@ -90,13 +90,40 @@
                                                                 <label for="file-upload"
                                                                     class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                                                                     <span>Upload a file</span>
-                                                                    <input id="file-upload" name="file-upload"
+                                                                    <input
                                                                         class="sr-only" />
                                                                 </label>
                                                                 <p class="pl-1">or drag and drop</p>
                                                             </div>
                                                             <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to
                                                                 10MB</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="sm:col-span-3">
+                                                    <label for="country"
+                                                        class="block text-sm font-medium leading-6 text-gray-900">visibility<span class="text-red-700">*</span></label>
+                                                    <div class="mt-2">
+                                                        <select required 
+                                                            v-model="postForm.visibility"
+                                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                            <option value="3">anonymous</option>
+                                                            <option value="2">afnan-shakeel and more</option>
+                                                            <option value="1">afnan-shakeel only</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="sm:col-span-4" v-if="postForm.visibility === '2'">
+                                                    <div class="mt-2">
+                                                        <div class="sm:col-span-3">
+                                                            <label for="first-name"
+                                                                class="block text-sm font-medium leading-6 text-gray-900">More Visibles</label>
+                                                            <div class="mt-2">
+                                                                <input type="text" v-model="postForm.allowed_visibles" required
+                                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            </div>
+                                                            <p class="mt-1 text-xs leading-6 text-gray-600">Add commas for multiple mails
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -107,7 +134,7 @@
                                     <div class="mt-6 flex items-center justify-end gap-x-6">
                                         <button type="button" @click="closeModal()"
                                             class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-                                        <button type="submit" @click="submit()"
+                                        <button type="button" @click="submit()"
                                             class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
                                     </div>
                                 </form>
@@ -149,7 +176,9 @@ const initData = () => {
         id: (props.editData && props.editData.id) || null,
         topic_tags: (props.editData && props.editData.topic_tags) || null,
         title: (props.editData && props.editData.title) || null,
-        context: (props.editData && props.editData.context) || ''
+        context: (props.editData && props.editData.context) || '',
+        visibility: (props.editData && props.editData.visibility) || null,
+        allowed_visibles: (props.editData && props.editData.allowed_visibles) || null,
     }
 }
 
@@ -162,6 +191,7 @@ const closeModal = () => {
 
 const submit = async () => {
     console.log(postForm.value)
+    if(!postForm.value.visibility) return
     const addRes = await submitPosts(postForm.value)
     if (addRes.message == 'success') {
         console.log(addRes.data)
