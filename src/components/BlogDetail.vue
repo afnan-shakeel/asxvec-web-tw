@@ -36,13 +36,13 @@
               leave-to="opacity-0 scale-95"
             >
               <DialogPanel
-                class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+                class="w-full max-w-md transform overflow-hidden rounded-2xl ring-4 bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-green-50 dark:ring-green-950"
               >
                 <DialogTitle
                   as="h3"
                   class="text-lg font-medium leading-6 text-gray-900"
                 >
-                  {{post.title}}
+                  <!-- {{post.title}} -->
                 </DialogTitle>
                 <div class="mt-2">
                     <article class="flex max-w-xl flex-col items-start justify-between">
@@ -60,11 +60,11 @@
                                     post.topic_tags }}</a>
                         </div>
                         <div class="group relative">
-                            <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                            <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600 dark:text-gray-800">
                                 <span class="absolute inset-0" />
                                 {{ post.title }}
                             </h3>
-                            <p class="mt-5 text-sm leading-6 text-gray-600">{{ post.context }}</p>
+                            <p class="mt-5 text-sm leading-6 text-gray-600 dark:text-gray-700">{{ post.context }}</p>
                         </div>
                         <div class="relative mt-8 flex items-center gap-x-4">
                             <img :src="'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'"
@@ -85,14 +85,16 @@
                 <div class="mt-10 flex justify-between">
                   <button
                     type="button"
-                    class="rounded-md border border-transparent bg-blue-100 px-4 py-0 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    class="rounded-md border border-transparent bg-blue-100 px-4 py-0 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2
+                    dark:bg-green-800 dark:bg-opacity-20 dark:text-green-900"
                     @click="closeModal()"
                     >
                     thanks!
                   </button>
                   <button
                     type="button" @click="editPost(post)"
-                    class="rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    class="rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2
+                    dark:bg-green-800 dark:bg-opacity-20 dark:text-green-900"
                   >
                     Edit, me!
                   </button>

@@ -1,5 +1,5 @@
 <template>
-  <div class="relative isolate overflow-hidden bg-black px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0 bg-opacity-40 ring-4 ring-white rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm">
+  <div class="relative isolate overflow-hidden dark:bg-black bg-white  px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0 bg-opacity-40 ring-1 dark:ring-4 ring-blue-400 ring-opacity-25 dark:ring-white rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm">
     <div class="absolute inset-0 -z-10 overflow-hidden">
       <svg class="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-gray-200 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]" aria-hidden="true">
         <defs>
