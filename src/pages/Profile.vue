@@ -1,5 +1,5 @@
 <template>
-  <div class="relative isolate overflow-hidden dark:bg-black bg-white  px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0 bg-opacity-40 ring-1 dark:ring-4 ring-blue-400 ring-opacity-25 dark:ring-white rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm">
+  <div class="relative isolate overflow-hidden dark:bg-black bg-white  px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0 bg-opacity-40 ring-1 dark:ring-4 ring-blue-400 ring-opacity-25 dark:ring-green-950 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm">
     <div class="absolute inset-0 -z-10 overflow-hidden">
       <svg class="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-gray-200 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]" aria-hidden="true">
         <defs>
@@ -32,15 +32,15 @@
             <p class="opacity-90">Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id.</p>
             <ul role="list" class="mt-8 space-y-8 text-gray-500">
               <li class="flex gap-x-3 opacity-80">
-                <CloudArrowUpIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
+                <!-- <CloudArrowUpIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" /> -->
                 <span><strong class="font-semibold text-green-800">Black Pearl.</strong> The Pearl is not an ordinary.. Sorry My pearl is not any ordinary ship. Neither the magics nor The Whites have ever been able to outplay her. Niegh uncatchable! And she can sit in a bottle too!</span>
               </li>
               <li class="flex gap-x-3 opacity-70">
-                <LockClosedIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
+                <!-- <LockClosedIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" /> -->
                 <span><strong class="font-semibold text-green-800">Barbossa.</strong> Poor friend has been hurting me even in death. Voyaging to bring him back</span>
               </li>
               <li class="flex gap-x-3 opacity-50">
-                <ServerIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
+                <!-- <ServerIcon class="mt-1 h-5 w-5 flex-none text-indigo-600" aria-hidden="true" /> -->
                 <span><strong class="font-semibold text-green-800">Jar of Dirt.</strong> Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.</span>
               </li>
             </ul>
@@ -59,12 +59,5 @@
   <script setup lang="ts">
   import {ref} from 'vue'
   const contentImage =  ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
-  // const people = [
-  //   {
-  //     name: 'Afnan Shakeel',
-  //     role: 'Capitan',
-  //     imageUrl:
-  //       'https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg',
-  //   },
-  // ]
+
   </script>

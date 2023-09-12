@@ -47,9 +47,7 @@
                                                         <select 
                                                             v-model="postForm.topic_tags"
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                            <option value="career">Career</option>
-                                                            <option value="life">Life</option>
-                                                            <option value="digit">Digit</option>
+                                                            <option v-for="item of topic_tags" :key="item.value" :value="item.value">{{item.name}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -107,9 +105,7 @@
                                                         <select required 
                                                             v-model="postForm.visibility"
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                            <option value="3">anonymous</option>
-                                                            <option value="2">afnan-shakeel and more</option>
-                                                            <option value="1">afnan-shakeel only</option>
+                                                            <option v-for="item of visibilityOptions" :key="item.value" :value="item.value">{{item.name}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -134,7 +130,7 @@
                                     <div class="mt-6 flex items-center justify-end gap-x-6">
                                         <button type="button" @click="closeModal()"
                                             class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-                                        <button type="button" @click="submit()"
+                                        <button type="submit" @click="submit()"
                                             class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
                                     </div>
                                 </form>
@@ -161,6 +157,12 @@ import { submitPosts } from '../services/blog.posts';
 
 const emits = defineEmits(['close-modal'])
 const props = defineProps(['editData'])
+const topic_tags = ref([
+    {name:'Life', value:'life'},
+    {name:'Career', value:'career'},
+    {name:'Relegion', value:'relegion'},
+])
+const visibilityOptions = ref([{name:'Anonymous', value:'3'},{name:'afnan-shakeel and more', value:'2'},{name:'afnan-shakeel', value:'1'}])
 
 const postForm = ref()
 
@@ -187,8 +189,6 @@ const closeModal = () => {
     emits('close-modal')
 }
 
-
-
 const submit = async () => {
     console.log(postForm.value)
     if(!postForm.value.visibility) return
@@ -196,7 +196,6 @@ const submit = async () => {
     if (addRes.message == 'success') {
         console.log(addRes.data)
     }
-
     closeModal()
 }
 </script>

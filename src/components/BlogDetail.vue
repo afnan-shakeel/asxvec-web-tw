@@ -67,7 +67,7 @@
                             <p class="mt-5 text-sm leading-6 text-gray-600 dark:text-gray-700">{{ post.context }}</p>
                         </div>
                         <div class="relative mt-8 flex items-center gap-x-4">
-                            <img :src="'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'"
+                            <img :src="profileImage"
                                 alt="" class="h-10 w-10 rounded-full bg-gray-50" />
                             <div class="text-sm leading-6">
                                 <p class="font-semibold text-gray-900">
@@ -115,7 +115,10 @@
     DialogPanel,
     DialogTitle,
   } from '@headlessui/vue'
-  
+  import {ref} from 'vue'
+
+  const profileImage = ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
+
   defineProps(['post'])
   const emits = defineEmits(['close-blog', 'edit-post'])
   function closeModal() {

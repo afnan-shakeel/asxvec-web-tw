@@ -56,7 +56,7 @@
           </div>
           <div class="hidden md:block">
             <div class="ml-4 flex items-center md:ml-6">
-              <button type="button"
+              <button v-if="false" type="button"
                 class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 <span class="absolute -inset-1.5"></span>
                 <span class="sr-only">View notifications</span>
@@ -74,8 +74,8 @@
                 <svg v-if="darkMode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
                 </svg> -->
-                <img v-if="!darkMode" width="30" height="30" src="/dark_ship.svg" alt="dark-ship"/>
-                <img v-if="darkMode" width="30" height="30" src="/light_ship.svg" alt="light-ship"/>
+                <img v-if="!darkMode" width="23" height="23" src="/dark_ship.svg" alt="dark-ship"/>
+                <img v-if="darkMode" width="23" height="23" src="/light_ship.svg" alt="light-ship"/>
 
               </button>
 
@@ -87,7 +87,7 @@
                     id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                     <span class="absolute -inset-1.5"></span>
                     <span class="sr-only">Open user menu</span>
-                    <img class="h-8 w-8 rounded-full" src="https://i.pravatar.cc/300" alt="">
+                    <img class="h-8 w-8 rounded-full" :src="profileImage" alt="">
                   </button>
                 </div>
 
@@ -118,7 +118,8 @@
           <div class="-mr-2 flex md:hidden">
             <!-- Mobile menu button -->
             <button type="button" @click="mobileMenu = !mobileMenu"
-              class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              class="relative inline-flex items-center justify-center rounded-md bg-white p-1 text-sky-800 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800
+              dark:bg-green-950"
               aria-controls="mobile-menu" aria-expanded="false">
               <span class="absolute -inset-0.5"></span>
               <span class="sr-only">Open main menu</span>
@@ -141,24 +142,23 @@
       <div class="md:hidden" id="mobile-menu">
         <div v-if="mobileMenu" class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
           <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-          <a v-for="(item, index) of menusList" :key="item.id" @click="routeTo(index, item.to, item)" href="#" :class="[item.isActive ? 'bg-gray-900 text-white ' : 'bg-white text-gray-300',
+          <a v-for="(item, index) of menusList" :key="item.id" @click="routeTo(index, item.to, item)" href="#" 
+            :class="[item.isActive ? 'bg-gray-900 text-white dark:bg-green-950 dark:text-white' : 'bg-white text-gray-800 dark:bg-black dark:text-white',
             'hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium']"
             aria-current="page">{{ item.title }}</a>
-          <a href="#"
-            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Reports</a>
         </div>
         <div class="border-t border-gray-700 pb-3 pt-4">
           <div class="flex items-center px-5">
             <div class="flex-shrink-0" @click="settingsMenu = !settingsMenu">
-              <img class="h-10 w-10 rounded-full" src="https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg"
+              <img class="h-10 w-10 rounded-full" :src="profileImage"
                 alt="">
             </div>
             <div class="ml-3">
               <div class="text-base leading-none text-gray-400">{{ 'afnan-shakeel' }}</div>
               <div class="text-xs font-medium leading-none text-gray-400">{{ 'afnanshakeel@gmail.com' }}</div>
             </div>
-            <button type="button"
-              class="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+            <button v-if="false" type="button"
+              class="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 dark:bg-green-950 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
               <span class="absolute -inset-1.5"></span>
               <span class="sr-only">View notifications</span>
               <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -210,6 +210,8 @@ import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 const router = useRouter()
 // const route = useRoute()
+
+const profileImage = ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
 const settingsMenu = ref(false)
 const mobileMenu = ref(false)
 const menusList = ref([

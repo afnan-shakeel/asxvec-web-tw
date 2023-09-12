@@ -35,7 +35,7 @@
                         <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600 dark:text-gray-500">{{ post.context }}</p>
                     </div>
                     <div class="relative mt-8 flex items-center gap-x-4 mb-2">
-                        <img :src="'https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg'" alt=""
+                        <img :src="profileImage" alt=""
                             class="h-10 w-10 rounded-full bg-gray-50" />
                         <div class="text-sm leading-6">
                             <p class="font-semibold text-gray-700 dark:text-gray-300">
@@ -72,6 +72,7 @@ const openBlog = ref(false)
 const auth = ref()
 const visibility = ref("3")
 const blogs = ref()
+const profileImage = ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
 onMounted(() => {
     auth.value = window.sessionStorage.getItem('auth')
     setVisibility()
