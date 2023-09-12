@@ -36,7 +36,7 @@
               leave-to="opacity-0 scale-95"
             >
               <DialogPanel
-                class="w-full max-w-md transform overflow-hidden rounded-2xl ring-4 bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-green-50 dark:ring-green-950"
+                class="w-full max-w-xl transform overflow-hidden rounded-2xl ring-4 bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-green-50 dark:ring-green-950"
               >
                 <DialogTitle
                   as="h3"
@@ -64,7 +64,7 @@
                                 <span class="absolute inset-0" />
                                 {{ post.title }}
                             </h3>
-                            <p class="mt-5 text-sm leading-6 text-gray-600 dark:text-gray-700">{{ post.context }}</p>
+                            <p class="mt-5 text-sm leading-6 text-gray-600 dark:text-gray-700" style="white-space: pre-line;">{{ post.context }}</p>
                         </div>
                         <div class="relative mt-8 flex items-center gap-x-4">
                             <img :src="profileImage"
