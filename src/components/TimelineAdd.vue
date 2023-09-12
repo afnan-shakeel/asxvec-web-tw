@@ -28,7 +28,7 @@
                         <DialogPanel
                             class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                             <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
-                                {{ 'Write Your Post' }}
+                                {{ 'Write Your Timeline' }}
                             </DialogTitle>
                             <div class="mt-2">
                                 <form>
@@ -72,31 +72,8 @@
                                                             v-model="postForm.context"
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                     </div>
-                                                    <p class="mt-3 text-sm leading-6 text-gray-600">Write a your post here.
+                                                    <p class="mt-3 text-sm leading-6 text-gray-600">Write a your context here.
                                                     </p>
-                                                </div>
-                                                <div class="col-span-full">
-                                                    <label for="cover-photo"
-                                                        class="block text-sm font-medium leading-6 text-gray-900">Cover
-                                                        photo</label>
-                                                    <div
-                                                        class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-6">
-                                                        <div class="text-center">
-                                                            <PhotoIcon class="mx-auto h-12 w-12 text-gray-300"
-                                                                aria-hidden="true" />
-                                                            <div class="mt-4 flex text-sm leading-6 text-gray-600">
-                                                                <label for="file-upload"
-                                                                    class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                                                                    <span>Upload a file</span>
-                                                                    <input
-                                                                        class="sr-only" />
-                                                                </label>
-                                                                <p class="pl-1">or drag and drop</p>
-                                                            </div>
-                                                            <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to
-                                                                10MB</p>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                                 <div class="sm:col-span-3">
                                                     <label for="country"
@@ -144,7 +121,7 @@
 </template>
   
 <script setup lang="ts">
-import { PhotoIcon } from '@heroicons/vue/24/solid'
+// import { PhotoIcon } from '@heroicons/vue/24/solid'
 import {
     TransitionRoot,
     TransitionChild,
@@ -152,8 +129,9 @@ import {
     DialogPanel,
     DialogTitle,
 } from '@headlessui/vue'
+
 import { ref, onMounted } from 'vue'
-import { submitPosts } from '../services/blog.posts';
+// import { submitTimeline } from '../services/timeline.posts';
 
 const emits = defineEmits(['close-modal'])
 const props = defineProps(['editData'])
@@ -191,11 +169,11 @@ const closeModal = () => {
 
 const submit = async () => {
     console.log(postForm.value)
-    if(!postForm.value.visibility || postForm.value.visibility=="") return
-    const addRes = await submitPosts(postForm.value)
-    if (addRes.message == 'success') {
-        console.log(addRes.data)
-    }
+    if(!postForm.value.visibility) return
+    // const addRes = await submitTimeline(postForm.value)
+    // if (addRes.message == 'success') {
+    //     console.log(addRes.data)
+    // }
     closeModal()
 }
 </script>

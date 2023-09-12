@@ -191,7 +191,7 @@
 
     <header class="bg-[#f0f9ff] bg-opacity-50 dark:bg-black ">
       <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <!-- <h1 class="text-3xl font-bold tracking-tight text-green-900">{{ pageHeader }}</h1> -->
+        <h1 class="text-3xl font-bold tracking-tight text-sky-900 dark:text-green-950">{{ pageHeader }}</h1>
       </div>
     </header>
     <main class="bg-[#f0f9ff] bg-opacity-50 dark:bg-gradient-to-br dark:from-black dark:to-green-950">
@@ -205,11 +205,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 const router = useRouter()
-// const route = useRoute()
+const route = useRoute()
 
 const profileImage = ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
 const settingsMenu = ref(false)
@@ -246,21 +246,29 @@ const menusList = ref([
     subMenu: [
       // { id:1, title: "Form", to:"/form" },
       { id: 2, title: "User Management", to: "/user" },
-
+      
     ]
+  },
+  {
+    id: 6,
+    title: "Time Line",
+    isActive: false,
+    to: "/time-line",
   },
 ])
 
-// const pageHeader = ref(route.name)
+const pageHeader = ref(route.name)
 
 const routeTo = (index: number, to: any, item: any) => {
   menusList.value.forEach((x: any) => x.isActive = false)
   menusList.value[index].isActive = true
-  router.push(to)
-  console.log(item)
   mobileMenu.value = false
-  // pageHeader.value = route.name
+  router.push(to)
+  
+  var currentRoute = router.getRoutes().filter((x: any)=>x.path == item.to)
+  pageHeader.value = currentRoute.length > 0 ? currentRoute[0].name : null
 }
+
 const signOut = () => {
   window.sessionStorage.clear()
   router.push('/')

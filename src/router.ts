@@ -7,6 +7,7 @@ import Profile from './pages/Profile.vue'
 import Form from './pages/Form.vue'
 import User from './pages/User.vue'
 import Blog from './pages/Blog.vue'
+import TimeLine from './pages/TimeLine.vue'
 export default createRouter({
   history: createWebHistory(),
   routes: [
@@ -44,6 +45,12 @@ export default createRouter({
       name: 'Blog',
       path: '/blog',
       component: Blog,
+      meta: { layout: SessionLayout }
+    },
+    {
+      name: 'Time-line',
+      path: '/time-line',
+      component: TimeLine,
       meta: { layout: SessionLayout }
     },
 
