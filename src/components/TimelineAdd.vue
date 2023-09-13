@@ -107,7 +107,7 @@
                                     <div class="mt-6 flex items-center justify-end gap-x-6">
                                         <button type="button" @click="closeModal()"
                                             class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-                                        <button type="submit" @click="submit()"
+                                        <button type="button" @click="submit()"
                                             class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
                                     </div>
                                 </form>
@@ -131,7 +131,7 @@ import {
 } from '@headlessui/vue'
 
 import { ref, onMounted } from 'vue'
-// import { submitTimeline } from '../services/timeline.posts';
+import { submitTimeline } from '../services/timeline.posts';
 
 const emits = defineEmits(['close-modal'])
 const props = defineProps(['editData'])
@@ -157,6 +157,7 @@ const initData = () => {
         topic_tags: (props.editData && props.editData.topic_tags) || null,
         title: (props.editData && props.editData.title) || null,
         context: (props.editData && props.editData.context) || '',
+        created_at: (props.editData && props.editData.context) || new Date(),
         visibility: (props.editData && props.editData.visibility) || null,
         allowed_visibles: (props.editData && props.editData.allowed_visibles) || null,
     }
@@ -170,10 +171,10 @@ const closeModal = () => {
 const submit = async () => {
     console.log(postForm.value)
     if(!postForm.value.visibility) return
-    // const addRes = await submitTimeline(postForm.value)
-    // if (addRes.message == 'success') {
-    //     console.log(addRes.data)
-    // }
-    closeModal()
+    const addRes = await submitTimeline(postForm.value)
+    if (addRes.message == 'success') {
+        console.log(addRes.data)
+    }
+    // closeModal()
 }
 </script>

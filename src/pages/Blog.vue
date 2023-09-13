@@ -19,8 +19,7 @@
                     </div>
                     <div class="flex items-center gap-x-4 text-xs">
 
-                        <time :datetime="post.datetime" class="text-gray-500 dark:text-gray-400">{{ post.created_at == '' && 'Mar 16, 2020'
-                        }}</time>
+                        <time :datetime="post.datetime" class="text-gray-500 dark:text-gray-400">{{ post.created_at}}</time>
                         <a :href="'#'"
                             class="relative z-10 rounded-full font-medium px-3 py-1.5 bg-sky-700 text-white hover:bg-sky-200 hover:text-black dark:bg-black dark:text-gray-300 ">{{
                                 post.topic_tags }}</a>
@@ -65,6 +64,8 @@
 import BlogDetail from '../components/BlogDetail.vue'
 import BlogWrite from '../components/BlogWrite.vue'
 import { ref, onMounted } from 'vue'
+import dayjs from 'dayjs';
+
 // import { useRouter } from 'vue-router'
 import { fetchPosts } from '../services/blog.posts'
 // const router = useRouter()
@@ -94,6 +95,11 @@ const getPosts = async () => {
     const postsRes = await fetchPosts()
     if (postsRes.message == 'success' && postsRes.data) {
         blogs.value = postsRes.data.filter((x: any) => String(x.visibility) === visibility.value)
+        blogs.value.forEach((x: any)=>{
+            let date = dayjs(x.created_at)
+            let formatDate = date.format('MMMM D[o], YYYY')
+            x.created_at = formatDate
+        })
         console.log(blogs.value)
     }
 }

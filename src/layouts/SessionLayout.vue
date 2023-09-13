@@ -74,8 +74,8 @@
                 <svg v-if="darkMode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
                 </svg> -->
-                <img v-if="!darkMode" width="23" height="23" src="/dark_ship.svg" alt="dark-ship"/>
-                <img v-if="darkMode" width="23" height="23" src="/light_ship.svg" alt="light-ship"/>
+                <img v-if="!darkMode" width="23" height="23" src="/dark_ship.svg" alt="dark-ship" />
+                <img v-if="darkMode" width="23" height="23" src="/light_ship.svg" alt="light-ship" />
 
               </button>
 
@@ -117,10 +117,8 @@
           </div>
           <div class="-mr-2 flex md:hidden">
             <!-- Mobile menu button -->
-            <button type="button" @click="mobileMenu = !mobileMenu"
-              class="relative inline-flex items-center justify-center rounded-md bg-white p-1 text-sky-800 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800
-              dark:bg-green-950"
-              aria-controls="mobile-menu" aria-expanded="false">
+            <button type="button" @click="mobileMenu = !mobileMenu" class="relative inline-flex items-center justify-center rounded-md bg-white p-1 text-sky-800 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800
+              dark:bg-green-950" aria-controls="mobile-menu" aria-expanded="false">
               <span class="absolute -inset-0.5"></span>
               <span class="sr-only">Open main menu</span>
               <!-- Menu open: "hidden", Menu closed: "block" -->
@@ -142,16 +140,14 @@
       <div class="md:hidden" id="mobile-menu">
         <div v-if="mobileMenu" class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
           <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-          <a v-for="(item, index) of menusList" :key="item.id" @click="routeTo(index, item.to, item)" href="#" 
-            :class="[item.isActive ? 'bg-gray-900 text-white dark:bg-green-950 dark:text-white' : 'bg-white text-gray-800 dark:bg-black dark:text-white',
+          <a v-for="(item, index) of menusList" :key="item.id" @click="routeTo(index, item.to, item)" href="#" :class="[item.isActive ? 'bg-gray-900 text-white dark:bg-green-950 dark:text-white' : 'bg-white text-gray-800 dark:bg-black dark:text-white',
             'hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium']"
             aria-current="page">{{ item.title }}</a>
         </div>
         <div class="border-t border-gray-700 pb-3 pt-4">
           <div class="flex items-center px-5">
             <div class="flex-shrink-0" @click="settingsMenu = !settingsMenu">
-              <img class="h-10 w-10 rounded-full" :src="profileImage"
-                alt="">
+              <img class="h-10 w-10 rounded-full" :src="profileImage" alt="">
             </div>
             <div class="ml-3">
               <div class="text-base leading-none text-gray-400">{{ 'afnan-shakeel' }}</div>
@@ -171,8 +167,8 @@
               class="relative ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
               <span class="absolute -inset-1.5"></span>
               <span class="sr-only">Dark Mode</span>
-              <img v-if="!darkMode" width="30" height="30" src="/dark_ship.svg" alt="dark-ship"/>
-              <img v-if="darkMode" width="30" height="30" src="/light_ship.svg" alt="light-ship"/>
+              <img v-if="darkMode == 'false'" width="30" height="30" src="/dark_ship.svg" alt="dark-ship" />
+              <img v-if="darkMode == 'true'" width="30" height="30" src="/light_ship.svg" alt="light-ship" />
             </button>
           </div>
           <div v-if="settingsMenu" class="mt-3 space-y-1 px-2">
@@ -204,13 +200,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+
 const router = useRouter()
 const route = useRoute()
-
+const darkMode = ref()
+onMounted(() => {
+  darkMode.value = window.sessionStorage.getItem('dark-mode') || 'false'
+  setDarkMode()
+})
 const profileImage = ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
 const settingsMenu = ref(false)
 const mobileMenu = ref(false)
@@ -246,7 +247,7 @@ const menusList = ref([
     subMenu: [
       // { id:1, title: "Form", to:"/form" },
       { id: 2, title: "User Management", to: "/user" },
-      
+
     ]
   },
   {
@@ -264,8 +265,8 @@ const routeTo = (index: number, to: any, item: any) => {
   menusList.value[index].isActive = true
   mobileMenu.value = false
   router.push(to)
-  
-  var currentRoute = router.getRoutes().filter((x: any)=>x.path == item.to)
+
+  var currentRoute = router.getRoutes().filter((x: any) => x.path == item.to)
   pageHeader.value = currentRoute.length > 0 ? currentRoute[0].name : null
 }
 
@@ -274,16 +275,20 @@ const signOut = () => {
   router.push('/')
 }
 
-const darkMode = ref(false)
 const toggleDarkMode = () => {
-  darkMode.value = !darkMode.value
-  if (darkMode.value) {
+  darkMode.value = darkMode.value == 'true' ? 'false' : 'true'
+  window.sessionStorage.setItem('dark-mode', darkMode.value)
+  setDarkMode()
+}
+
+const setDarkMode = () => {
+  if (window.sessionStorage.getItem('dark-mode') == 'true') {
     document.documentElement.classList.add('dark')
   } else {
     document.documentElement.classList.remove('dark')
   }
-  
 }
+
 </script>
 
 <style></style>

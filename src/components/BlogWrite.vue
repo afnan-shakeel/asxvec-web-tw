@@ -179,6 +179,7 @@ const initData = () => {
         topic_tags: (props.editData && props.editData.topic_tags) || null,
         title: (props.editData && props.editData.title) || null,
         context: (props.editData && props.editData.context) || '',
+        created_at: (props.editData && props.editData.created_at) || new Date(),
         visibility: (props.editData && props.editData.visibility) || null,
         allowed_visibles: (props.editData && props.editData.allowed_visibles) || null,
     }
