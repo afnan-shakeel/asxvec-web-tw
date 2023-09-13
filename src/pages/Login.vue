@@ -82,7 +82,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router';
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInAnonymously, RecaptchaVerifier } from '@firebase/auth';
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, } from '@firebase/auth';
 import * as firebaseui from 'firebaseui'
 import firebase from 'firebase/compat/app'
 
@@ -133,22 +133,22 @@ const googleSignIn = () => {
         });
 }
 
-const anonSignIn = () => {
-    // if (!loginInput.value.username || !loginInput.value.passcode) return
-    const auth = getAuth();
-    signInAnonymously(auth)
-        .then((data: any) => {
-            console.log(data)
-            let auth = { "authProvider": (data.user.providerData.length > 0) && JSON.stringify(data.user.providerData[0]), "isAnonymous": data.user.isAnonymous, "token": data.user.accessToken }
-            sessionStore(auth)
-            router.push("/dashboard")
-        })
-        .catch((error: any) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage)
-        });
-}
+// const anonSignIn = () => {
+//     // if (!loginInput.value.username || !loginInput.value.passcode) return
+//     const auth = getAuth();
+//     signInAnonymously(auth)
+//         .then((data: any) => {
+//             console.log(data)
+//             let auth = { "authProvider": (data.user.providerData.length > 0) && JSON.stringify(data.user.providerData[0]), "isAnonymous": data.user.isAnonymous, "token": data.user.accessToken }
+//             sessionStore(auth)
+//             router.push("/dashboard")
+//         })
+//         .catch((error: any) => {
+//             const errorCode = error.code;
+//             const errorMessage = error.message;
+//             console.log(errorCode, errorMessage)
+//         });
+// }
 
 const otpSignIn = () => {
     const firebaseConfig = {
