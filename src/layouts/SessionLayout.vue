@@ -109,7 +109,7 @@
                     id="user-menu-item-0">Your Profile</a>
                   <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
                     id="user-menu-item-1">Settings</a>
-                  <a href="#" @click="signOut()" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                  <a href="#" @click="_signOut()" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
                     tabindex="-1" id="user-menu-item-2">Sign out</a>
                 </div>
               </div>
@@ -177,7 +177,7 @@
               Profile</a>
             <a href="#"
               class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
-            <a href="#" @click="signOut()"
+            <a href="#" @click="_signOut()"
               class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign
               out</a>
           </div>
@@ -204,6 +204,7 @@ import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+import { getAuth, signOut } from "firebase/auth";
 
 const router = useRouter()
 const route = useRoute()
@@ -270,9 +271,15 @@ const routeTo = (index: number, to: any, item: any) => {
   pageHeader.value = currentRoute.length > 0 ? currentRoute[0].name : null
 }
 
-const signOut = () => {
-  window.sessionStorage.clear()
-  router.push('/')
+const _signOut = () => {
+  const auth = getAuth();
+  signOut(auth).then((res: any) => {
+    console.log(res)
+    window.sessionStorage.clear()
+    router.push('/')
+  }).catch((error: any) => {
+    console.error(error)
+  });
 }
 
 const toggleDarkMode = () => {

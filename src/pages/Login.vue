@@ -202,5 +202,7 @@ const sessionStore = (data: any) => {
     if (data.token) window.sessionStorage.setItem('token', data.token)
     if (data.isAnonymous) window.sessionStorage.setItem('isAnonymous', data.isAnonymous)
 }
+
+
 </script>
-<style></style>  
+<style></style>
