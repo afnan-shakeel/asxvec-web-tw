@@ -8,6 +8,8 @@ import Form from './pages/Form.vue'
 import User from './pages/User.vue'
 import Blog from './pages/Blog.vue'
 import TimeLine from './pages/TimeLine.vue'
+import PalestineIsrael from './pages/PalestineIsrael.vue'
+
 export default createRouter({
   history: createWebHistory(),
   routes: [
@@ -51,6 +53,12 @@ export default createRouter({
       name: 'Time-line',
       path: '/time-line',
       component: TimeLine,
+      meta: { layout: SessionLayout }
+    },
+    {
+      name: 'Palestine Israel Conflicts',
+      path: '/palestine-israel-timeline',
+      component: PalestineIsrael,
       meta: { layout: SessionLayout }
     },
 

@@ -248,6 +248,7 @@ const menusList = ref([
     subMenu: [
       // { id:1, title: "Form", to:"/form" },
       { id: 2, title: "User Management", to: "/user" },
+      { id: 2, title: "Palestine Israel Conflicts", to: "/palestine-israel-timeline" },
 
     ]
   },
