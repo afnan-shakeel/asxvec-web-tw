@@ -44,7 +44,7 @@
                                                     <label for="country"
                                                         class="block text-sm font-medium leading-6 text-gray-900">Date</label>
                                                     <div class="mt-2">
-                                                        <input type="date" v-model="postForm.date"  
+                                                        <input type="date" v-model="postForm.date"
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                     </div>
                                                 </div>
@@ -99,11 +99,13 @@
                                                                 </svg>
                                                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
                                                                     <span class="font-semibold">Click to upload</span> or
-                                                                    drag and drop</p>
+                                                                    drag and drop
+                                                                </p>
                                                                 <p class="text-xs text-gray-500 dark:text-gray-400">SVG,
                                                                     PNG, JPG or GIF (MAX. 800x400px)</p>
                                                             </div>
-                                                            <input id="dropzone-file" type="file" class="hidden" v-on:change="handleFileChange" multiple/>
+                                                            <input id="dropzone-file" type="file" class="hidden"
+                                                                v-on:change="handleFileChange" multiple />
                                                         </label>
                                                     </div>
                                                 </div>
@@ -167,8 +169,9 @@ import {
 } from '@headlessui/vue'
 
 import { ref, onMounted } from 'vue'
-import { submitTimeline } from '../services/timeline.posts';
+import { submitTimeline, updateFiles } from '../services/timeline.posts';
 import { useRoute } from 'vue-router';
+import { timelineImageUpload } from '../services/storage.files';
 
 const route = useRoute()
 const emits = defineEmits(['close-modal'])
@@ -198,9 +201,8 @@ const initData = () => {
         created_at: (props.editData && props.editData.context) || new Date(),
         visibility: (props.editData && props.editData.visibility) || null,
         allowed_visibles: (props.editData && props.editData.allowed_visibles) || null,
-        files : (props.editData && props.editData.files) || []
+        files: (props.editData && props.editData.files) || []
     }
-    console.log(route.path)
     if (route.path == '/palestine-israel-timeline') {
         topic_tags.value = [
             { name: 'Palestine Israel Conflict', value: 'palestine-israel' },
@@ -214,22 +216,36 @@ const closeModal = () => {
     postForm.value = {}
     emits('close-modal')
 }
-
+// gs://asxvec.appspot.com/images/timeline/Screenshot 2023-09-04 115724.png
 const submit = async () => {
     console.log(postForm.value)
     if (!postForm.value.visibility) return
-    await submitTimeline(postForm.value).catch((err: any) => {
+    const resId = await submitTimeline(postForm.value).catch((err: any) => {
         console.error(err)
     })
+    console.log("doc id", resId)
+
+    for (var [index, file] of postForm.value.files.entries()) {
+
+        var blob = new Blob([file.file], { type: file.type });
+        let filename = resId + "_" + postForm.value.date + "_" + String(index + 1) + ".jpg"
+        var newFile = new File([blob], filename);
+
+        var upload = await timelineImageUpload(newFile, { topic_tags: postForm.value.topic_tags, timeline_date: postForm.value.date })
+        console.log('=', upload)
+        if(!upload) {console.error("upload failed"); return;}
+        postForm.value.files[index] = upload
+    }
+
+    await updateFiles(resId, postForm.value.files).catch((error)=> console.error(error))
     // closeModal()
 }
 
-function handleFileChange(event: any){
-    let files = event.target.files;
-    for(let item of files){
-        console.log(item)
-        postForm.value.files.push(item)
+async function handleFileChange(event: any) {
+    let files: File[] = event.target.files;
+    for (let item of files) {
+        postForm.value.files.push({ file: item, file_url: null })
     }
-    console.log(postForm.value.files.length) 
+    console.log(postForm.value.files.length)
 }
 </script>
