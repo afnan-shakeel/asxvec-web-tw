@@ -3,9 +3,9 @@
         class="bg-sky-100 bg-opacity-20  dark:bg-white dark:bg-opacity-0 dark:sm:bg-opacity-5 py-16 sm:py-16 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-2xl lg:mx-0">
-                <h2 class="text-3xl font-bold tracking-tight text-sky-800 dark:text-gray-300 sm:text-4xl">Timeline from the
-                    of Palestine Israel conflict</h2>
-                <p class="mt-2 text-lg leading-8 text-gray-600">Detailing the timeline of events that occured from the beginining of 1900</p>
+                <h2 class="text-3xl font-bold tracking-tight text-sky-800 dark:text-gray-300 sm:text-4xl">Timeline from the conflicts of
+                    Palestine and Israel</h2>
+                <p class="mt-2 text-lg leading-8 text-gray-600">Detailing the timeline of events that occured from the beginining of the Palestine colonization</p>
             </div>
             <div class="flex justify-between my-10">
                 <!-- <div class="">
@@ -42,14 +42,14 @@
                     </div>
                 </Menu>
                 <div class="">
-                    <button @click="toggleAddModal(true)" type="button"
+                    <button @click="setFormModal(true)" type="button"
                         class="px-4 py-1.5 text-sm font-medium rounded-md ring-sky-900 dark:ring-black hover:ring-sky-600 dark:hover:ring-black ring-2 bg-sky-200  hover:bg-sky-600 bg-opacity-30 text-sky-900 dark:bg-opacity-10 dark:text-gray-300 dark:hover:bg-black hover:text-white dark:hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                         Add a New Time</button>
                 </div>
             </div>
 
             <ol class="relative border-l border-gray-200 dark:border-gray-700">
-                <li class="mb-10 ml-6">
+                <li v-if="false" class="mb-10 ml-6">
                     <span
                         class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
                         <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true"
@@ -86,11 +86,11 @@
                         </svg>
                     </span>
                     <h3 class="mb-1 text-lg font-semibold text-gray-900 dark:text-white">{{ item.title }}
-                        <a
+                        <a v-if="false"
                             class="relative ml-1 rounded-full text-xs px-2 py-1 bg-sky-700 text-white hover:bg-sky-200 hover:text-black dark:bg-black dark:text-gray-300 ">{{
                                 item.topic_tags }}</a>
                     </h3>
-                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Released on
+                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">On
                         {{ item.date }}</time>
                     <p class="text-base font-normal text-gray-500 dark:text-gray-400 mb-2">{{ item.context }}</p>
                     <!-- https://picsum.photos/200/300 -->
@@ -135,8 +135,8 @@
                 </li>
 
             </ol>
-            <div v-if="openAddModal">
-                <TimelineAdd @close-modal="toggleAddModal(false)" :editData="editData"> </TimelineAdd>
+            <div v-if="isFormModal">
+                <TimelineAdd @close-modal="setFormModal(false)" :editData="editData"> </TimelineAdd>
             </div>
         </div>
     </div>
@@ -167,11 +167,13 @@ const fetchData = async () => {
     timeLine.value = res
     filteredTimeline.value = timeLine.value
 }
-const openAddModal = ref(false)
-const toggleAddModal = (value: boolean) => {
+const isFormModal = ref(false)
+const setFormModal = (value: boolean) => {
     // if(!auth_visibility.value || auth_visibility.value!=="1") {window.alert('insufficient access'); return}
-    openAddModal.value = value
+    isFormModal.value = value
+    if(value==false) fetchData()
 }
+
 const editData = ref()
 // const handleEdit = (data: any) => {
 //     editData.value = data

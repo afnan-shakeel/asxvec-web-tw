@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 const timeline_api = 'https://script.google.com/macros/s/AKfycbyWDavz6dnFm39RGn4Z8ry4BPUfQV0QPjUUuWK4beS9oJJXN27ML5BsrF9V8-X-7Zfe7Q/exec'
 
 const fetchTimelines = async () => {
-    const q = query(collection(db, "timeline"), where("topic_tags", '==', 'palestine-israel'), orderBy("date"));
+    const q = query(collection(db, "timeline"), where("topic_tags", '==', 'palestine-israel'), orderBy("date", 'desc'));
     const querySnapshot = await getDocs(q).catch((err) => {
         console.error(err)
         return null
@@ -48,7 +48,7 @@ const submitTimeline = async (data: any) => {
         title: data.title,
         context: data.context,
         visibility: data.visibility,
-        date: serverTimestamp(),
+        date: Timestamp.fromDate(new Date(data.date)),
         files: data.image_url || null
     });
 
