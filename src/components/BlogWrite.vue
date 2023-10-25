@@ -1,25 +1,10 @@
-<!--
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
--->
 <template>
     <TransitionRoot appear :show="true" as="template">
-        <Dialog as="div" class="relative z-10">
+        <Dialog as="div" @close="" class="relative z-10">
             <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100"
                 leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
                 <div class="fixed inset-0 bg-black bg-opacity-25" />
             </TransitionChild>
-
             <div class="fixed inset-0 overflow-y-auto">
                 <div class="flex min-h-full items-center justify-center p-4 text-center">
                     <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0 scale-95"
@@ -44,10 +29,11 @@
                                                     <label for="country"
                                                         class="block text-sm font-medium leading-6 text-gray-900">Topic</label>
                                                     <div class="mt-2">
-                                                        <select 
-                                                            v-model="postForm.topic_tags"
+                                                        <select v-model="postForm.topic_tags"
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                            <option v-for="item of topic_tags" :key="item.value" :value="item.value">{{item.name}}</option>
+                                                            <option v-for="item of topic_tags" :key="item.value"
+                                                                :value="item.value">{{ item.name }}
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -68,8 +54,7 @@
                                                     <label for="about"
                                                         class="block text-sm font-medium leading-6 text-gray-900">Context</label>
                                                     <div class="mt-2">
-                                                        <textarea rows="5"
-                                                            v-model="postForm.context"
+                                                        <textarea rows="5" v-model="postForm.context"
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                     </div>
                                                     <p class="mt-3 text-sm leading-6 text-gray-600">Write a your post here.
@@ -88,8 +73,7 @@
                                                                 <label for="file-upload"
                                                                     class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                                                                     <span>Upload a file</span>
-                                                                    <input
-                                                                        class="sr-only" />
+                                                                    <input class="sr-only" />
                                                                 </label>
                                                                 <p class="pl-1">or drag and drop</p>
                                                             </div>
@@ -100,12 +84,14 @@
                                                 </div>
                                                 <div class="sm:col-span-3">
                                                     <label for="country"
-                                                        class="block text-sm font-medium leading-6 text-gray-900">visibility<span class="text-red-700">*</span></label>
+                                                        class="block text-sm font-medium leading-6 text-gray-900">visibility<span
+                                                            class="text-red-700">*</span></label>
                                                     <div class="mt-2">
-                                                        <select required 
-                                                            v-model="postForm.visibility"
+                                                        <select required v-model="postForm.visibility"
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                            <option v-for="item of visibilityOptions" :key="item.value" :value="item.value">{{item.name}}</option>
+                                                            <option v-for="item of visibilityOptions" :key="item.value"
+                                                                :value="item.value">
+                                                                {{ item.name }}</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -113,12 +99,15 @@
                                                     <div class="mt-2">
                                                         <div class="sm:col-span-3">
                                                             <label for="first-name"
-                                                                class="block text-sm font-medium leading-6 text-gray-900">More Visibles</label>
+                                                                class="block text-sm font-medium leading-6 text-gray-900">More
+                                                                Visibles</label>
                                                             <div class="mt-2">
-                                                                <input type="text" v-model="postForm.allowed_visibles" required
+                                                                <input type="text" v-model="postForm.allowed_visibles"
+                                                                    required
                                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                             </div>
-                                                            <p class="mt-1 text-xs leading-6 text-gray-600">Add commas for multiple mails
+                                                            <p class="mt-1 text-xs leading-6 text-gray-600">Add commas for
+                                                                multiple mails
                                                             </p>
                                                         </div>
                                                     </div>
@@ -130,7 +119,7 @@
                                     <div class="mt-6 flex items-center justify-end gap-x-6">
                                         <button type="button" @click="closeModal()"
                                             class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-                                        <button type="submit" @click="submit()"
+                                        <button type="button" @click="submit()"
                                             class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
                                     </div>
                                 </form>
@@ -144,7 +133,7 @@
 </template>
   
 <script setup lang="ts">
-import { PhotoIcon } from '@heroicons/vue/24/solid'
+import { ref, onMounted } from 'vue'
 import {
     TransitionRoot,
     TransitionChild,
@@ -152,26 +141,31 @@ import {
     DialogPanel,
     DialogTitle,
 } from '@headlessui/vue'
-import { ref, onMounted } from 'vue'
-import { submitPosts } from '../services/blog.posts';
+import { PhotoIcon } from '@heroicons/vue/24/solid'
+import { addPost } from '../services/post.db';
 
-const emits = defineEmits(['close-modal'])
+const emits = defineEmits(['close-modalx'])
 const props = defineProps(['editData'])
 const topic_tags = ref([
-    {name:'Life', value:'life'},
-    {name:'Career', value:'career'},
-    {name:'Relegion', value:'relegion'},
+    { name: 'Life', value: 'life' },
+    { name: 'Career', value: 'career' },
+    { name: 'Relegion', value: 'relegion' },
 ])
-const visibilityOptions = ref([{name:'Anonymous', value:'3'},{name:'afnan-shakeel and more', value:'2'},{name:'afnan-shakeel', value:'1'}])
-
+const visibilityOptions = ref([{ name: 'Anonymous', value: '3' }, { name: 'afnan-shakeel and more', value: '2' }, { name: 'afnan-shakeel', value: '1' }])
 const postForm = ref()
 
-
 onMounted(() => {
-    // postForm
     initData()
 })
-
+const initForm = {
+    id: null,
+    topic_tags: null,
+    title: null,
+    context: null,
+    created_at: null,
+    visibility: null,
+    allowed_visibles: null,
+}
 const initData = () => {
     console.log('looking for edit data', props.editData)
     postForm.value = {
@@ -186,16 +180,17 @@ const initData = () => {
 }
 
 const closeModal = () => {
-    postForm.value = {}
-    emits('close-modal')
+    postForm.value = initForm
+    emits('close-modalx')
 }
 
 const submit = async () => {
     console.log(postForm.value)
-    if(!postForm.value.visibility || postForm.value.visibility=="") return
-    const addRes = await submitPosts(postForm.value)
-    if (addRes.message == 'success') {
-        console.log(addRes.data)
+    if (!postForm.value.visibility || postForm.value.visibility == "") return
+    const res = await addPost(postForm.value,'slaPRvboJ00cdpElWTlC')
+    console.log(res)
+    if (!res) {
+        console.error(res)
     }
     closeModal()
 }
