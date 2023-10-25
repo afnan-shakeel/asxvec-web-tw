@@ -1,4 +1,4 @@
-import { doc, collection, addDoc, getDocs, getDoc, setDoc, Timestamp, serverTimestamp, where } from "firebase/firestore";
+import { doc, collection, getDocs,  setDoc, Timestamp, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase";
 
 const collectionName = "post_comments"
@@ -24,21 +24,20 @@ async function addComment(data: any, user: any, post: any) {
     }
 }
 
-async function getComments(post: any) {
-    const postRef = doc(db, "posts", post)
-    const querySnapshot = await getDocs(collection(db, collectionName), where("post", '==', postRef))
+async function getComments() {
+    // const postRef = doc(db, "posts", post)
+    const querySnapshot = await getDocs(collection(db, collectionName))
         .catch((err) => {
             console.error(err)
             return null
         });
-    console.log('x', querySnapshot.docs)
+    console.log('x', querySnapshot?.docs)
     let res: any[] = []
     querySnapshot?.docs.forEach((doc) => {
         let obj: any = { "id": doc.id, ...doc.data() }
-        const dateTimestampFie
-        ld = 2165;
+        const dateTimestampField: number = 2165;
         if (dateTimestampField) {
-            const date = new Date(dateTimestampField.seconds * 1000);
+            const date = new Date(dateTimestampField * 1000);
             obj = { ...obj, "created_at": date }
         }
         res.push(obj)
@@ -67,14 +66,15 @@ async function addReply(data: any, user: any, post_comment: any) {
     }
 }
 
-async function getReplies(comment:any) {
-    const commentRef = doc(db, "post_comments", comment)
-    const querySnapshot = await getDocs(collection(db, "comment_replies"), where("post_comment", '==', commentRef))
+async function getReplies() {
+    // const commentRef = doc(db, "post_comments", comment)
+    console.log()
+    const querySnapshot = await getDocs(collection(db, "comment_replies"))
         .catch((err) => {
             console.error(err)
             return null
         });
-    console.log('x', querySnapshot.docs)
+    console.log('x', querySnapshot?.docs)
     let res: any[] = []
     querySnapshot?.docs.forEach((doc) => {
         let obj: any = { "id": doc.id, ...doc.data() }

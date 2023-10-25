@@ -2,8 +2,8 @@ import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 
-const storageRef = ref(storage);
-const imagesRef = ref(storage, "images");
+// const storageRef = ref(storage);
+// const imagesRef = ref(storage, "images");
 const timelineImageRef = ref(storage, "images/timeline");
 
 // gs://asxvec.appspot.com/images/timeline/Screenshot 2023-09-04 115724.png

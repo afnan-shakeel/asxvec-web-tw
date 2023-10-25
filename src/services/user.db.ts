@@ -1,4 +1,4 @@
-import { doc, collection, addDoc, getDocs, getDoc, setDoc, Timestamp, serverTimestamp } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 const collectionName = "users"
@@ -8,7 +8,7 @@ async function getUserById(id: string) {
         console.error(err)
         return null
     });
-    return { "id": querySnapshot.id, ...querySnapshot?.data() }
+    return { "id": querySnapshot?.id, ...querySnapshot?.data() }
 }
 
 export { getUserById }

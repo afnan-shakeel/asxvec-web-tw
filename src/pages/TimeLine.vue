@@ -109,7 +109,6 @@ import { ref, onMounted } from 'vue'
 import { fetchTimelines } from '../services/timeline.posts'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import TimelineAdd from '../components/TimelineAdd.vue'
-import dayjs from 'dayjs';
 import { authenticate } from '../services/manage.auth'
 
 onMounted(async () => {
@@ -129,21 +128,7 @@ const topic_tags = ref([
 ])
 const fetchData = async () => {
     const res = await fetchTimelines()
-    if (res.message == 'success' && res.data) {
-        timeLine.value = JSON.parse(res.data)
-        timeLine.value.forEach((x: any) => {
-            let date = dayjs(x.created_at)
-            let formatDate = date.format('MMMM D[o], YYYY')
-            x.created_at = formatDate
-        })
-        filteredTimeline.value = timeLine.value
-        console.log('auth visibility',auth_visibility.value)
-        filteredTimeline.value = filteredTimeline.value.filter((x: any)=> {
-            if(auth_visibility.value == "1") return true
-            if(auth_visibility.value == "3") return x.visibility == "3"
-        })
-        console.log('time line ', filteredTimeline.value)
-    }
+    timeLine.value = res
 }
 const openAddModal = ref(false)
 const toggleAddModal = (value: boolean) => {

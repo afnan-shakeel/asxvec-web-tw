@@ -1,8 +1,8 @@
-import { doc, collection, addDoc, getDocs, setDoc, Timestamp, serverTimestamp, where, query, orderBy, toDate, toDateString } from "firebase/firestore";
+import { doc, collection, addDoc, getDocs, setDoc, Timestamp, where, query, orderBy } from "firebase/firestore";
 import { db } from "../firebase";
 import dayjs from 'dayjs';
 
-const timeline_api = 'https://script.google.com/macros/s/AKfycbyWDavz6dnFm39RGn4Z8ry4BPUfQV0QPjUUuWK4beS9oJJXN27ML5BsrF9V8-X-7Zfe7Q/exec'
+// const timeline_api = 'https://script.google.com/macros/s/AKfycbyWDavz6dnFm39RGn4Z8ry4BPUfQV0QPjUUuWK4beS9oJJXN27ML5BsrF9V8-X-7Zfe7Q/exec'
 
 const fetchTimelines = async () => {
     const q = query(collection(db, "timeline"), where("topic_tags", '==', 'palestine-israel'), orderBy("date", 'desc'));
@@ -13,7 +13,6 @@ const fetchTimelines = async () => {
     // console.log(querySnapshot.size)
     let res: any[] = []
     querySnapshot?.forEach( async (doc) => {
-        let x = new Date(doc.data().date.seconds * 1000)
         // let y = doc.data().date.toMillis()
         let obj = doc.data()
         let milliDate = doc.data().date.toMillis()

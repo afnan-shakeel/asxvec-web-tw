@@ -1,4 +1,4 @@
-import { doc, collection, addDoc, getDocs, setDoc, Timestamp, serverTimestamp } from "firebase/firestore";
+import { doc, collection, getDocs, setDoc, Timestamp, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase";
 
 
@@ -39,9 +39,9 @@ async function getPosts() {
         }
         res.push(obj)
     });
-    res.forEach(x=>{
-        // console.log(x.user.id)
-    })
+    // res.forEach(x=>{
+    //     // console.log(x.user.id)
+    // })
     return res
 }
 

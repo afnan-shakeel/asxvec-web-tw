@@ -109,7 +109,7 @@
                         </div>
                         <!-- Slider indicators -->
                         <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
-                            <button v-for="(image, index) of item.files" :key="index" 
+                            <button v-for="index in item.files" :key="index" 
                              type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" :data-carousel-slide-to="index"></button>
                         </div>
                         <!-- Slider controls -->
@@ -148,7 +148,6 @@ import { ref, onMounted } from 'vue'
 import { fetchTimelines } from '../services/timeline.posts'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import TimelineAdd from '../components/TimelineAdd.vue'
-import dayjs from 'dayjs';
 import { authenticate } from '../services/manage.auth'
 
 onMounted(async () => {

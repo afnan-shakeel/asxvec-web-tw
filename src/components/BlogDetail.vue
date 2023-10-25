@@ -64,7 +64,6 @@
 <script setup lang="ts">
 
 import { ref, onMounted } from 'vue'
-import BlogComments from './BlogComments.vue';
 const profileImage = ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
 
 defineProps(['post'])

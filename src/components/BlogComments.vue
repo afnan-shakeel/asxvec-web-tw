@@ -146,7 +146,7 @@ import { getUserById } from '../services/user.db';
 
 const props = defineProps(['postX'])
 onMounted(() => {
-    fetchComments(props.postX.id)
+    fetchComments()
 })
 const comment_input = ref()
 const post_comments = ref()
@@ -159,11 +159,11 @@ async function postComment() {
     console.log(obj)
     const res = await addComment(obj, 'slaPRvboJ00cdpElWTlC', props.postX.id)
     console.log(res)
-    fetchComments(props.postX.id)
+    fetchComments()
 }
 
-async function fetchComments(post: any) {
-    const res = await getComments(post)
+async function fetchComments() {
+    const res = await getComments()
     // post_comments.value = res
     await res.forEach(async (x: any) => {
         let date = dayjs(x.created_at)
@@ -173,7 +173,7 @@ async function fetchComments(post: any) {
             let userObj = await getUserById(x.user.id)
             x.user = userObj
             x.replies = []
-            let replyComment = await getReplies(x.id)
+            let replyComment = await getReplies()
             console.log("replyComment", replyComment)
             var replies = replyComment
             if (replies.length > 0) {
@@ -208,30 +208,6 @@ function focusComment() {
     console.log(commentArea.value)
 
 }
-const comments = ref([
-    {
-        id: 1,
-        username: 'Michael Gough',
-        date: 'Feb. 8, 2022',
-        comment: 'Very straight-to-point article. Really worth time reading. Thank you! But tools are just the instruments for the UX designers. The knowledge of the design tools are as important as the creation of the design strategy.',
-        replies: [
-            {
-                id: 1,
-                parent: 1,
-                date: 'Feb. 12, 2022',
-                comment: 'Much appreciated! Glad you liked it ☺️',
-                username: 'Jese Leos'
-            }
-        ]
-    },
-    {
-        id: 2,
-        username: 'Kumar Gopal',
-        date: 'Oct. 22, 2022',
-        comment: 'Very straight-to-point article. Really worth time reading. Thank you! But tools are just the instruments for the UX designers. The knowledge of the design tools are as important as the creation of the design strategy.',
-        replies: []
-    },
-])
 
 
 </script>
