@@ -148,14 +148,14 @@ import { ref, onMounted } from 'vue'
 import { fetchTimelines } from '../services/timeline.posts'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import TimelineAdd from '../components/TimelineAdd.vue'
-import { authenticate } from '../services/manage.auth'
+// import { authenticate } from '../services/manage.auth'
 
 onMounted(async () => {
-    auth_visibility.value = await authenticate()
-    if(!auth_visibility.value) {window.alert('auto logged out'); return;}
+    // auth_visibility.value = await authenticate()
+    // if(!auth_visibility.value) {window.alert('auto logged out'); return;}
     fetchData()
 })
-const auth_visibility = ref()
+// const auth_visibility = ref()
 const filteredTimeline = ref()
 const timeLine = ref()
 const topic_tags = ref([
