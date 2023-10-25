@@ -95,10 +95,10 @@
                     <p class="text-base font-normal text-gray-500 dark:text-gray-400 mb-2">{{ item.context }}</p>
                     <!-- https://picsum.photos/200/300 -->
                     <!-- https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg -->
-                    <div v-if="item.files.length == 1">
+                    <div v-if="item.files && item.files.length == 1">
                         <img :src="item.files[0]" class="max-h-[340px] max-w-[100%]" alt="...">
                     </div>
-                    <div v-if="item.files.length > 1" id="indicators-carousel" class="relative w-full" data-carousel="static">
+                    <div v-if="item.files && item.files.length > 1" id="indicators-carousel" class="relative w-full" data-carousel="static">
                         <!-- Carousel wrapper -->
                         <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                             <!-- Item 1 -->

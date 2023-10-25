@@ -12,19 +12,17 @@ const fetchTimelines = async () => {
     });
     // console.log(querySnapshot.size)
     let res: any[] = []
-    querySnapshot?.forEach((doc) => {
+    querySnapshot?.forEach( async (doc) => {
         let x = new Date(doc.data().date.seconds * 1000)
-        let y = doc.data().date.toDate().toDateString()
-        doc.data().date = y
-        // console.log(y,)
+        // let y = doc.data().date.toMillis()
         let obj = doc.data()
-        let date = doc.data().date
-        if (!date) return
-        date = dayjs(date)
-        let formatDate = date.format('MMMM D[o], YYYY')
-        date = formatDate
-        obj.date = date
-        // console.log(obj)
+        let milliDate = doc.data().date.toMillis()
+        console.log("milli  date", milliDate)
+        if (!milliDate) return
+        let date = dayjs(milliDate)
+        let formatDate = date.format('ddd, MMM D, YYYY')
+        let formatedDate = formatDate
+        obj.date = formatedDate
         res.push(obj)
     })
     console.log(res)
