@@ -5,7 +5,7 @@
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-2xl lg:mx-0">
                 <h2 class="text-3xl font-bold tracking-tight text-sky-800 dark:text-gray-300 sm:text-4xl">From the blog of
-                    afnan-shakeel</h2>
+                    {{accountMeta.id}}</h2>
                 <p class="mt-2 text-lg leading-8 text-gray-600">This guy writes about his business and life with his expert
                     advice.</p>
             </div>
