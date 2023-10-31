@@ -3,7 +3,7 @@ import {initializeApp} from 'firebase/app';
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from 'firebase/storage';
 
-
+console.log(import.meta.env.VITE_FIREBASE_PROJECT_ID)
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
     authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -16,5 +16,5 @@ const firebaseConfig = {
 // initializeApp(firebaseConfig)
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const storage = getStorage(app)
+const storage = getStorage(app, "gs://my-custom-bucket")
 export { db, storage }
