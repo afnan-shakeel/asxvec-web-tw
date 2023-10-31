@@ -16,5 +16,5 @@ const firebaseConfig = {
 // initializeApp(firebaseConfig)
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const storage = getStorage(app, "gs://my-custom-bucket")
+const storage = getStorage(app, "gs://min-vec.appspot.com")
 export { db, storage }
