@@ -87,7 +87,7 @@
                     id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                     <span class="absolute -inset-1.5"></span>
                     <span class="sr-only">Open user menu</span>
-                    <img class="h-8 w-8 rounded-full" :src="profileImage" alt="">
+                    <img class="h-8 w-8 rounded-full" :src="accountMeta.profile_url" alt="">
                   </button>
                 </div>
 
@@ -147,7 +147,7 @@
         <div class="border-t border-gray-700 pb-3 pt-4">
           <div class="flex items-center px-5">
             <div class="flex-shrink-0" @click="settingsMenu = !settingsMenu">
-              <img class="h-10 w-10 rounded-full" :src="profileImage" alt="">
+              <img class="h-10 w-10 rounded-full" :src="accountMeta.profile_url" alt="">
             </div>
             <div class="ml-3">
               <div class="text-base leading-none text-gray-400">{{ 'afnan-shakeel' }}</div>
@@ -193,7 +193,7 @@
     <main class="bg-[#f0f9ff] bg-opacity-50 dark:bg-gradient-to-br dark:from-black dark:to-green-950">
       <div class="min-h-screen mx-auto max-w-7xl py-4 sm:px-6 lg:px-6">
         <!-- Your content -->
-        <router-view></router-view>
+        <router-view :accountMeta="accountMeta"></router-view>
       </div>
     </main>
   </div>
@@ -206,6 +206,16 @@ import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import { getAuth, signOut } from "firebase/auth";
 
+
+// const profileImage = ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
+const accountMeta = ref({
+    "name": import.meta.env.VITE_PERSON_NAME,
+    "id": import.meta.env.VITE_PERSON_ID,
+    "designation": import.meta.env.VITE_PERSON_DESIGNATION,
+    "email": import.meta.env.VITE_PERSON_EMAIL,
+    "profile_url": import.meta.env.VITE_PERSON_PROFILE_URL
+})
+
 const router = useRouter()
 const route = useRoute()
 const darkMode = ref()
@@ -213,7 +223,6 @@ onMounted(() => {
   darkMode.value = window.sessionStorage.getItem('dark-mode') || 'false'
   setDarkMode()
 })
-const profileImage = ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
 const settingsMenu = ref(false)
 const mobileMenu = ref(false)
 const menusList = ref([

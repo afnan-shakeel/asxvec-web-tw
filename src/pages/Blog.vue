@@ -1,5 +1,5 @@
 <template>
-    <button @click="test()">x-x-x</button>
+    <!-- <button @click="test()">x-x-x</button> -->
     <div
         class="bg-sky-100 bg-opacity-20  dark:bg-white dark:bg-opacity-5 py-24 sm:py-32 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
@@ -42,7 +42,7 @@
                         </p>
                     </div>
                     <div class="relative mt-8 flex items-center gap-x-4 mb-2">
-                        <img :src="profileImage" alt="" class="h-10 w-10 rounded-full bg-gray-50" />
+                        <img :src="accountMeta.profile_url" alt="" class="h-10 w-10 rounded-full bg-gray-50" />
                         <div class="text-sm leading-6">
                             <p class="font-semibold text-gray-700 dark:text-gray-300">
                                 <a :href="'#'">
@@ -50,7 +50,7 @@
                                     {{ post.user.username }}
                                 </a>
                             </p>
-                            <p class="text-gray-600 dark:text-gray-400">{{ 'being-human' }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">{{ accountMeta.designation }}</p>
                         </div>
                     </div>
                 </article>
@@ -113,17 +113,14 @@ import {
 import { getPosts } from '../services/post.db';
 import { getUserById } from '../services/user.db'
 
-async function test() {
-    // addPost()
-    console.log(await getPosts())
-}
-
+const props = defineProps(["accountMeta"])
 const isOpenBlog = ref(false)
 const auth = ref()
 const visibility = ref("3")
 const blogs = ref()
-const profileImage = ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
+// const profileImage = ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
 onMounted(() => {
+    console.log(props.accountMeta)
     auth.value = window.sessionStorage.getItem('auth')
     setVisibility()
     fetchPosts()
@@ -136,9 +133,10 @@ const setVisibility = () => {
     let _auth = auth && JSON.parse(auth)
 
     if (!_auth || _auth.length == 0 || isAnonymous) { visibility.value = "3"; return; }
-    if (_auth.email === "afnanshakeel@gmail.com") { visibility.value = "1"; return; }
-    if (_auth.email !== "afnanshakeel@gmail.com" && ['password', 'google.com'].includes(_auth.providerId)) { visibility.value = "2"; return; }
+    if (_auth.email === props.accountMeta.email) { visibility.value = "1"; return; }
+    if (_auth.email !== props.accountMeta.email && ['password', 'google.com'].includes(_auth.providerId)) { visibility.value = "2"; return; }
 }
+
 const fetchPosts = async () => {
     const postsRes = await getPosts()
     console.log(postsRes)
@@ -153,6 +151,7 @@ const fetchPosts = async () => {
         })
     }
 }
+
 const postDetail = ref()
 const setOpenBlog = (post: any = null, value: boolean) => {
     postDetail.value = post
