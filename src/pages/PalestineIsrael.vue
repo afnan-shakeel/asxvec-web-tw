@@ -3,9 +3,11 @@
         class="bg-sky-100 bg-opacity-20  dark:bg-white dark:bg-opacity-0 dark:sm:bg-opacity-5 py-16 sm:py-16 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-2xl lg:mx-0">
-                <h2 class="text-3xl font-bold tracking-tight text-sky-800 dark:text-gray-300 sm:text-4xl">Timeline from the conflicts of
+                <h2 class="text-3xl font-bold tracking-tight text-sky-800 dark:text-gray-300 sm:text-4xl">Timeline from the
+                    conflicts of
                     Palestine and Israel</h2>
-                <p class="mt-2 text-lg leading-8 text-gray-600">Detailing the timeline of events that occured from the beginining of the Palestine colonization</p>
+                <p class="mt-2 text-lg leading-8 text-gray-600">Detailing the timeline of events that occured from the
+                    beginining of the Palestine colonization</p>
             </div>
             <div class="flex justify-between my-10">
                 <!-- <div class="">
@@ -49,15 +51,29 @@
             </div>
 
             <ol class="relative border-l border-gray-200 dark:border-gray-700">
-                <li v-if="false" class="mb-10 ml-6">
-                    <span
-                        class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                        <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                        </svg>
-                    </span>
+                <li v-if="true" class="mb-10 ml-6">
+                    <Menu as="div" class=" inline-block text-left">
+                        <MenuButton @click="openEventMenu()"
+                            class="absolute inline-flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+                            <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                            </svg>
+                        </MenuButton>
+                        <MenuItems
+                            class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+                            <MenuItem v-for="item of eventClikOptions" v-slot="{ active }">
+                            <a :class="[
+                                active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                                'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                            ]" @click="callEventOption(item)">
+                                {{ item.name }}
+                            </a>
+                            </MenuItem>
+
+                        </MenuItems>
+                    </Menu>
                     <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">Sample
                         <span
                             class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ml-3">Latest</span>
@@ -77,16 +93,31 @@
                         </svg> Download ZIP</a>
                 </li>
                 <li class="mb-10 ml-6" v-for="item of filteredTimeline" :key="item.id">
-                    <span
-                        class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                        <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                        </svg>
-                    </span>
+
+                    <Menu as="div" class=" inline-block text-left">
+                        <MenuButton @click="openEventMenu()"
+                            class="absolute inline-flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+                            <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                            </svg>
+                        </MenuButton>
+                        <MenuItems
+                            class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+                            <MenuItem v-for="option of eventClikOptions" v-slot="{ active }">
+                            <a :class="[
+                                active ? 'bg-violet-500 text-white' : 'text-gray-900',
+                                'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                            ]" @click="callEventOption(option, item)">
+                                {{ option.name }}
+                            </a>
+                            </MenuItem>
+
+                        </MenuItems>
+                    </Menu>
                     <h3 class="mb-1 text-lg font-semibold text-gray-900 dark:text-white">{{ item.title }}
-                        <a v-if="false"
+                        <a
                             class="relative ml-1 rounded-full text-xs px-2 py-1 bg-sky-700 text-white hover:bg-sky-200 hover:text-black dark:bg-black dark:text-gray-300 ">{{
                                 item.topic_tags }}</a>
                     </h3>
@@ -98,40 +129,53 @@
                     <div v-if="item.files && item.files.length == 1">
                         <img :src="item.files[0]" class="max-h-[340px] max-w-[100%]" alt="...">
                     </div>
-                    <div v-if="item.files && item.files.length > 1" id="indicators-carousel" class="relative w-full" data-carousel="static">
+                    <div v-if="item.files && item.files.length > 1" id="indicators-carousel" class="relative w-full"
+                        data-carousel="static">
                         <!-- Carousel wrapper -->
                         <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                             <!-- Item 1 -->
-                           <div v-for="image of item.files" :key="image" 
-                           class="hidden duration-700 ease-in-out" data-carousel-item>
-                               <img :src="image" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                           </div>
+                            <div v-for="image of item.files" :key="image" class="hidden duration-700 ease-in-out"
+                                data-carousel-item>
+                                <img :src="image"
+                                    class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                    alt="...">
+                            </div>
                         </div>
                         <!-- Slider indicators -->
                         <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
-                            <button v-for="index in item.files" :key="index" 
-                             type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" :data-carousel-slide-to="index"></button>
+                            <button v-for="index in item.files" :key="index" type="button" class="w-3 h-3 rounded-full"
+                                aria-current="true" aria-label="Slide 1" :data-carousel-slide-to="index"></button>
                         </div>
                         <!-- Slider controls -->
-                        <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                        <button type="button"
+                            class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                            data-carousel-prev>
+                            <span
+                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M5 1 1 5l4 4" />
                                 </svg>
                                 <span class="sr-only">Previous</span>
                             </span>
                         </button>
-                        <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                        <button type="button"
+                            class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                            data-carousel-next>
+                            <span
+                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 9 4-4-4-4" />
                                 </svg>
                                 <span class="sr-only">Next</span>
                             </span>
                         </button>
                     </div>
-                    
-                    
+
+
                 </li>
 
             </ol>
@@ -151,32 +195,52 @@ import TimelineAdd from '../components/TimelineAdd.vue'
 // import { authenticate } from '../services/manage.auth'
 
 onMounted(async () => {
-    // auth_visibility.value = await authenticate()
-    // if(!auth_visibility.value) {window.alert('auto logged out'); return;}
     fetchData()
 })
-// const auth_visibility = ref()
 const filteredTimeline = ref()
 const timeLine = ref()
 const topic_tags = ref([
     { name: 'Palestine Israel Conflict', value: 'palestine-israel' },
+    { name: 'Ottoman Empire', value: 'ottoman-empire' },
+    { name: 'Mughal Empire', value: 'mughal-empire' },
 ])
+const filtererdTags = ref()
 const fetchData = async () => {
-    const res = await fetchTimelines()
-    timeLine.value = res
+    const topicTags = [
+        { field: "topic_tags", operator: "==", value: "palestine-israel" },
+        { field: "topic_tags", operator: "==", value: "mughal-empire" },
+    ];
+    let results: any[] = [];
+    for (let condition of topicTags) {
+        const res = await fetchTimelines([condition]);
+        results = [...results, ...res];
+    }
+    timeLine.value = results
     filteredTimeline.value = timeLine.value
+    console.log(timeLine.value)
 }
 const isFormModal = ref(false)
 const setFormModal = (value: boolean) => {
-    // if(!auth_visibility.value || auth_visibility.value!=="1") {window.alert('insufficient access'); return}
     isFormModal.value = value
-    if(value==false) fetchData()
+    if (value == false) fetchData()
 }
 
 const editData = ref()
-// const handleEdit = (data: any) => {
-//     editData.value = data
-// }
+const eventClikOptions = ref([{ name: 'Edit Event', value: 'edit', function: handleEdit }, { name: 'Report Event', value: 'report' }])
+function openEventMenu() {
+    console.log('open event menu')
+
+}
+function callEventOption(option:any, item: any) {
+    console.log('call event option', option, item)
+    option.function(item)  // call event option function
+}
+function handleEdit (data: any) {
+    console.log('handle edit', data)
+    editData.value = data
+    setFormModal(true)
+}
+
 const filterTimeline = (value: any) => {
     if (value.value == 'all') { filteredTimeline.value = timeLine.value; return }
 

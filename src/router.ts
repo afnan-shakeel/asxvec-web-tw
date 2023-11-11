@@ -56,7 +56,7 @@ export default createRouter({
       meta: { layout: SessionLayout }
     },
     {
-      name: 'Palestine Israel Conflicts',
+      name: 'History Timeline',
       path: '/palestine-israel-timeline',
       component: PalestineIsrael,
       meta: { layout: SessionLayout }

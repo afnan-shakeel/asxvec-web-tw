@@ -187,7 +187,7 @@ const closeModal = () => {
 const submit = async () => {
     console.log(postForm.value)
     if (!postForm.value.visibility || postForm.value.visibility == "") return
-    const res = await addPost(postForm.value,'slaPRvboJ00cdpElWTlC')
+    const res = await addPost(postForm.value,{id: 'slaPRvboJ00cdpElWTlC', username: '_username'})
     console.log(res)
     if (!res) {
         console.error(res)

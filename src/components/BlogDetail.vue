@@ -45,7 +45,7 @@
         </div>
       </div>
       <div>
-        <!-- <BlogComments :post-x="post"></BlogComments> -->
+        <BlogComments :post-x="{id: 1}"></BlogComments>
       </div>
     </article>
   </div>
@@ -62,12 +62,13 @@
 </template>
   
 <script setup lang="ts">
-
+import BlogComments from './BlogComments.vue'
 import { ref, onMounted } from 'vue'
 const profileImage = ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
 
-defineProps(['post'])
+const props = defineProps(['post'])
 onMounted(() => {
+  console.log(props.post)
 })
 const emits = defineEmits(['close-blog', 'edit-post'])
 

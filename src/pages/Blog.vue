@@ -13,6 +13,9 @@
                 <button @click="setOpenForm(true)" type="button"
                     class="px-4 py-1.5 text-sm font-medium rounded-md ring-sky-900 dark:ring-black hover:ring-sky-600 dark:hover:ring-black ring-2 bg-sky-200  hover:bg-sky-600 bg-opacity-30 text-sky-900 dark:bg-opacity-10 dark:text-gray-300 dark:hover:bg-black hover:text-white dark:hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                     Write a New Post</button>
+                <button @click="test()" type="button"
+                    class="px-4 py-1.5 text-sm font-medium rounded-md ring-sky-900 dark:ring-black hover:ring-sky-600 dark:hover:ring-black ring-2 bg-sky-200  hover:bg-sky-600 bg-opacity-30 text-sky-900 dark:bg-opacity-10 dark:text-gray-300 dark:hover:bg-black hover:text-white dark:hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                    TEST</button>
             </div>
             <div
                 class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 dark:border-gray-500 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
@@ -24,8 +27,8 @@
                     </div>
                     <div class="flex items-center gap-x-4 text-xs">
 
-                        <time :datetime="post.datetime" class="text-gray-500 dark:text-gray-400">{{ post.created_at
-                        }}</time>
+                        <!-- <time :datetime="post.datetime" class="text-gray-500 dark:text-gray-400">{{ post.created_at
+                        }}</time> -->
                         <a :href="'#'"
                             class="relative z-10 rounded-full font-medium px-3 py-1.5 bg-sky-700 text-white hover:bg-sky-200 hover:text-black dark:bg-black dark:text-gray-300 ">{{
                                 post.topic_tags }}</a>
@@ -73,11 +76,11 @@
                                             class="w-full max-w-xl transform overflow-hidden rounded-2xl ring-4 bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-green-50 dark:ring-green-950">
                                             <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
                                                 <!-- {{post.title}} -->
-                                            </DialogTitle>
-                                            <BlogDetail @close-blog="isOpenBlog = false" @edit-post="handleEdit($event)"
-                                                :post="postDetail">
-                                            </BlogDetail>
-                                        </DialogPanel>
+                                </DialogTitle>
+                                    <BlogDetail @close-blog="isOpenBlog = false" @edit-post="handleEdit($event)"
+                                        :post="postDetail">
+                                    </BlogDetail>
+                                </DialogPanel>
                                     </TransitionChild>
                                 </div>
                             </div>
@@ -110,7 +113,7 @@ import {
 // import { useRouter } from 'vue-router'
 // import { fetchPosts } from '../services/blog.posts'
 // const router = useRouter()
-import { getPosts } from '../services/post.db';
+import { getPosts, testAdd } from '../services/post.db';
 import { getUserById } from '../services/user.db'
 
 const props = defineProps(["accountMeta"])
@@ -139,11 +142,11 @@ const setVisibility = () => {
 
 const fetchPosts = async () => {
     const postsRes = await getPosts()
-    console.log(postsRes)
+    console.log('postsRes',postsRes)
     if (postsRes && postsRes.length !== 0) {
         blogs.value = postsRes.filter((x: any) => String(x.visibility) === visibility.value)
         blogs.value.forEach(async (x: any) => {
-            let date = dayjs(x.created_at)
+            let date = dayjs(x.date)
             let formatDate = date.format('MMMM D[o], YYYY')
             x.created_at = formatDate
             let user = await getUserById(x.user.id)
@@ -157,7 +160,9 @@ const setOpenBlog = (post: any = null, value: boolean) => {
     postDetail.value = post
     isOpenBlog.value = value
 }
-
+async function test(){
+    await testAdd()
+}
 const isOpenForm = ref(false)
 const setOpenForm = async (value: boolean) => {
     isOpenForm.value = value
