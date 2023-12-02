@@ -4,7 +4,6 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vitejs.dev/config/
 
-import vueform from '@vueform/vueform/vite'
 import { visualizer } from 'rollup-plugin-visualizer';
 import { type PluginOption } from 'vite'
 
@@ -49,6 +48,5 @@ export default defineConfig({
         ]
       }
     }),
-    vueform(),
   ],
 })
