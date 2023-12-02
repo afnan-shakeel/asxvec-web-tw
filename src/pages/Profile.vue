@@ -40,5 +40,5 @@
 
 <script setup lang="ts">
 
+  // const contentImage =  ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
 </script>
-  <!-- const contentImage =  ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg') -->
