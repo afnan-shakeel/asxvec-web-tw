@@ -4,10 +4,10 @@
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-2xl lg:mx-0">
                 <h2 class="text-3xl font-bold tracking-tight text-sky-800 dark:text-gray-300 sm:text-4xl">Timeline from the
-                    conflicts of
-                    Palestine and Israel</h2>
-                <p class="mt-2 text-lg leading-8 text-gray-600">Detailing the timeline of events that occured from the
-                    beginining of the Palestine colonization</p>
+                    History of 18th century</h2>
+                <p class="mt-2 text-lg leading-8 text-gray-600">Detailing the timeline of various historic events that
+                    occured from the
+                    beginining of the 18th century</p>
             </div>
             <div class="flex justify-between my-10">
                 <!-- <div class="">
@@ -33,7 +33,7 @@
                             <MenuItems
                                 class="absolute mt-2 w-32 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
                                 <div class="px-1 py-1">
-                                    <MenuItem v-for="item of topic_tags" :key="item.value">
+                                    <MenuItem v-for="item of history_tags" :key="item.value">
                                     <button @click="filterTimeline(item)" :class="['bg-sky-100 text-gray-900 bg-opacity-10 hover:bg-opacity-40  hover:text-sky-800', 'dark:bg-green-100 dark:bg-opacity-10 dark:hover:bg-opacity-40 dark:text-green-950',
                                         'group flex w-full items-center rounded-md px-2 py-2 text-sm',]" tabindex="-1">
                                         {{ item.name }} </button>
@@ -52,28 +52,6 @@
 
             <ol class="relative border-l border-gray-200 dark:border-gray-700">
                 <li v-if="true" class="mb-10 ml-6">
-                    <Menu as="div" class=" inline-block text-left">
-                        <MenuButton @click="openEventMenu()"
-                            class="absolute inline-flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                            <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path
-                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                            </svg>
-                        </MenuButton>
-                        <MenuItems
-                            class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
-                            <MenuItem v-for="item of eventClikOptions" v-slot="{ active }">
-                            <a :class="[
-                                active ? 'bg-violet-500 text-white' : 'text-gray-900',
-                                'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                            ]" @click="callEventOption(item)">
-                                {{ item.name }}
-                            </a>
-                            </MenuItem>
-
-                        </MenuItems>
-                    </Menu>
                     <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">Sample
                         <span
                             class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ml-3">Latest</span>
@@ -118,7 +96,7 @@
                     </Menu>
                     <h3 class="mb-1 text-lg font-semibold text-gray-900 dark:text-white">{{ item.title }}
                         <a
-                            class="relative ml-1 rounded-full text-xs px-2 py-1 bg-sky-700 text-white hover:bg-sky-200 hover:text-black dark:bg-black dark:text-gray-300 ">{{
+                            class="relative ml-1 rounded-full text-xs px-2 py-1 bg-sky-100 text-sky-900 hover:bg-sky-200  dark:bg-black dark:text-gray-300 ">{{
                                 item.topic_tags }}</a>
                     </h3>
                     <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">On
@@ -192,37 +170,39 @@ import { ref, onMounted } from 'vue'
 import { fetchTimelines } from '../services/timeline.posts'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import TimelineAdd from '../components/TimelineAdd.vue'
+import { getBasivMaster } from '../services/basicMaster.db'
 // import { authenticate } from '../services/manage.auth'
 
 onMounted(async () => {
+    getHistoryMaster("history-timline")
     fetchData()
 })
 const filteredTimeline = ref()
 const timeLine = ref()
-const topic_tags = ref([
-    { name: 'Palestine Israel Conflict', value: 'palestine-israel' },
-    { name: 'Ottoman Empire', value: 'ottoman-empire' },
-    { name: 'Mughal Empire', value: 'mughal-empire' },
-])
-const filtererdTags = ref()
-const fetchData = async () => {
-    const topicTags = [
-        { field: "topic_tags", operator: "==", value: "palestine-israel" },
-        { field: "topic_tags", operator: "==", value: "mughal-empire" },
-    ];
-    let results: any[] = [];
-    for (let condition of topicTags) {
-        const res = await fetchTimelines([condition]);
-        results = [...results, ...res];
+const history_tags: any = ref([])
+function getHistoryMaster(type:string) {
+    getBasivMaster(type).then((res: any) => {
+        history_tags.value = [{ name: 'All', value: 'all' }, ...res]
+    })
+}
+const fetchData = async (filter: any = null) => {
+    let obj;
+    if (!filter) {
+        obj = [
+            { field: "topic_tags", operator: "in", value: ["palestine-israel", 'ottoman-empire', 'mughal-empire'] },
+        ]
     }
-    timeLine.value = results
+    else { obj = filter }
+
+    const res = await fetchTimelines(obj);
+    timeLine.value = res
     filteredTimeline.value = timeLine.value
     console.log(timeLine.value)
 }
 const isFormModal = ref(false)
 const setFormModal = (value: boolean) => {
     isFormModal.value = value
-    if (value == false) fetchData()
+    if (value == false) { fetchData(); editData.value = null }
 }
 
 const editData = ref()
@@ -231,21 +211,19 @@ function openEventMenu() {
     console.log('open event menu')
 
 }
-function callEventOption(option:any, item: any) {
+function callEventOption(option: any, item: any) {
     console.log('call event option', option, item)
     option.function(item)  // call event option function
 }
-function handleEdit (data: any) {
+function handleEdit(data: any) {
     console.log('handle edit', data)
     editData.value = data
     setFormModal(true)
 }
 
 const filterTimeline = (value: any) => {
-    if (value.value == 'all') { filteredTimeline.value = timeLine.value; return }
-
-    filteredTimeline.value = timeLine.value.filter((x: any) => x.topic_tags == value.value)
-    console.log(filteredTimeline.value, value.topic_tags)
+    if (value.value == 'all') { fetchData(); return }
+    fetchData([{ field: "topic_tags", operator: "in", value: [value.value] }])
 }
 </script>
 

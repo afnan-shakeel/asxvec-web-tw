@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 // const timeline_api = 'https://script.google.com/macros/s/AKfycbyWDavz6dnFm39RGn4Z8ry4BPUfQV0QPjUUuWK4beS9oJJXN27ML5BsrF9V8-X-7Zfe7Q/exec'
 
-const fetchTimelines = async (conditions: any[]) => {
+const fetchTimelines = async (conditions: any[] = []) => {
     let q: any = collection(db, "timeline");
 
     conditions.forEach(condition => {
@@ -13,7 +13,7 @@ const fetchTimelines = async (conditions: any[]) => {
 
     q = query(q, orderBy("date", 'desc'));
 
-    // const q = query(collection(db, "timeline"), where("topic_tags", '==', 'palestine-israel'), orderBy("date", 'desc'));
+    // const q = query(collection(db, "timeline"), where("topic_tags", '==', topic_tags_list), orderBy("date", 'desc'));
     const querySnapshot = await getDocs(q).catch((err) => {
         console.error(err)
         return null
@@ -22,15 +22,15 @@ const fetchTimelines = async (conditions: any[]) => {
     let res: any[] = []
     querySnapshot?.forEach(async (doc) => {
         // let y = doc.data().date.toMillis()
-        let obj = doc.data()
-        console.log("obj", obj)
-        let milliDate = doc.data().date.toMillis()
+        let obj:any = doc.data()
+        let milliDate = obj?.date.toMillis()
         // console.log("milli  date", milliDate)
         if (!milliDate) return
         let date = dayjs(milliDate)
         let formatDate = date.format('ddd, MMM D, YYYY')
         let formatedDate = formatDate
         obj.date = formatedDate
+        obj.id = doc.id
         res.push(obj)
     })
     console.log(res)

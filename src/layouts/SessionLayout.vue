@@ -257,7 +257,7 @@ const menusList = ref([
     subMenu: [
       // { id:1, title: "Form", to:"/form" },
       { id: 2, title: "User Management", to: "/user" },
-      { id: 3, title: "History Timeline", to: "/palestine-israel-timeline" },
+      { id: 3, title: "History Timeline", to: "/history-timeline" },
 
     ]
   },

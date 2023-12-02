@@ -44,7 +44,7 @@
                                                     <label for="country"
                                                         class="block text-sm font-medium leading-6 text-gray-900">Date</label>
                                                     <div class="mt-2">
-                                                        <input type="date" v-model="postForm.date"
+                                                        <input type="date" v-bind="postForm.date"
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                     </div>
                                                 </div>
@@ -52,7 +52,7 @@
                                                     <label for="country"
                                                         class="block text-sm font-medium leading-6 text-gray-900">Topic</label>
                                                     <div class="mt-2">
-                                                        <select v-model="postForm.topic_tags"
+                                                        <select v-bind="postForm.topic_tags"
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                                             <option v-for="item of topic_tags" :key="item.value"
                                                                 :value="item.value">{{ item.name }}</option>
@@ -65,7 +65,7 @@
                                                             <label for="first-name"
                                                                 class="block text-sm font-medium leading-6 text-gray-900">Title</label>
                                                             <div class="mt-2">
-                                                                <input type="text" v-model="postForm.title" v-bind="title"
+                                                                <input type="text" v-bind="postForm.title"
                                                                     class="block w-full rounded-md border-0 py-2.5 text-gray-900 font-bold shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                             </div>
                                                         </div>
@@ -76,7 +76,7 @@
                                                     <label for="about"
                                                         class="block text-sm font-medium leading-6 text-gray-900">Context</label>
                                                     <div class="mt-2">
-                                                        <textarea rows="5" v-model="postForm.context"
+                                                        <textarea rows="5" v-bind="postForm.context"
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                     </div>
                                                     <p class="mt-3 text-sm leading-6 text-gray-600">Write a your context
@@ -105,7 +105,7 @@
                                                                     PNG, JPG or GIF (MAX. 800x400px)</p>
                                                             </div>
                                                             <input id="dropzone-file" type="file" class="hidden"
-                                                                v-on:change="handleFileChange" multiple />
+                                                                v-on:change="handleFileChange($event)" multiple />
                                                         </label>
                                                     </div>
                                                 </div>
@@ -114,21 +114,21 @@
                                                         class="block text-sm font-medium leading-6 text-gray-900">visibility<span
                                                             class="text-red-700">*</span></label>
                                                     <div class="mt-2">
-                                                        <select required v-model="postForm.visibility"
+                                                        <select required v-bind="postForm.visibility"
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                                             <option v-for="item of visibilityOptions" :key="item.value"
                                                                 :value="item.value">{{ item.name }}</option>
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="sm:col-span-4" v-if="postForm.visibility === '2'">
+                                                <div class="sm:col-span-4" v-if="true">
                                                     <div class="mt-2">
                                                         <div class="sm:col-span-3">
                                                             <label for="first-name"
                                                                 class="block text-sm font-medium leading-6 text-gray-900">More
                                                                 Visibles</label>
                                                             <div class="mt-2">
-                                                                <input type="text" v-model="postForm.allowed_visibles"
+                                                                <input type="text" v-bind="postForm.allowed_visibles"
                                                                     required
                                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                             </div>
@@ -188,6 +188,9 @@ import { submitTimeline, updateFiles } from '../services/timeline.posts';
 import { useRoute } from 'vue-router';
 import { timelineImageUpload } from '../services/storage.files';
 import * as yup from 'yup';
+import dayjs from 'dayjs';
+import { toTypedSchema } from '@vee-validate/yup';
+
 
 const route = useRoute()
 const emits = defineEmits(['close-modal'])
@@ -197,80 +200,72 @@ const topic_tags = ref([
     { name: 'Career', value: 'career' },
     { name: 'Relegion', value: 'relegion' },
 ])
-const visibilityOptions = ref([{ name: 'Anonymous', value: '3' }, { name: 'afnan-shakeel and more', value: '2' }, { name: 'afnan-shakeel', value: '1' }])
-const { defineInputBinds, setFieldValue, setValues, resetForm } = useForm({
-    initialValues: {
-        id: yup.number().nullable(),
-        topic_tags: yup.string().nullable(),
-        title: yup.string().nullable(),
-        context: yup.string().nullable(),
-        created_at: yup.string().nullable(),
-        visibility: yup.string().nullable(),
-        allowed_visibles: yup.string().nullable(),
-        files: yup.array().of(yup.object().shape({ file: yup.object(), file_url: yup.string().nullable() })).nullable()
-    },
+const visibilityOptions = ref([{ name: 'Anonymous', value: '1' }, { name: 'afnan-shakeel and more', value: '2' }, { name: 'afnan-shakeel', value: '3' }])
+const { defineInputBinds, setFieldValue, setValues, resetForm, controlledValues } = useForm({
+    validationSchema: toTypedSchema(yup.object({
+        id: yup.number(),
+        topic_tags: yup.string(),
+        title: yup.string(),
+        context: yup.string(),
+        date: yup.string(),
+        visibility: yup.string(),
+        allowed_visibles: yup.string(),
+    })
+    ),
 });
-
+const files: any[] = []
+// files: yup.array().of(yup.object().shape({
+//     file: yup.object(),
+//     file_url: yup.string()
+// }))
 const postForm = ref({
-    id: null,
-    topic_tags: null,
-    title: null,
-    context: null,
-    created_at: null,
-    visibility: null,
-    allowed_visibles: null,
-    files: []
+    id: defineInputBinds('id'),
+    topic_tags: defineInputBinds('topic_tags'),
+    title: defineInputBinds('title'),
+    context: defineInputBinds('context'),
+    date: defineInputBinds('date'),
+    visibility: defineInputBinds('visibility'),
+    allowed_visibles: defineInputBinds('allowed_visibles'),
+    // files: defineInputBinds('files')
 })
 const submitLoader = ref(false)
 
 onMounted(() => {
-    // postForm
     initData()
 })
 
-const title = defineInputBinds('title');
 const initData = () => {
-    console.log('looking for edit data', props.editData)
-    if(props.editData && props.editData.id){
-        setValues(
-            {
-                id: (props.editData && props.editData.id) || null,
-                topic_tags: (props.editData && props.editData.topic_tags) || null,
-                title: (props.editData && props.editData.title) || null,
-                context: (props.editData && props.editData.context) || '',
-                created_at: (props.editData && props.editData.created_at) || new Date(),
-                visibility: (props.editData && props.editData.visibility) || null,
-                allowed_visibles: (props.editData && props.editData.allowed_visibles) || null,
-                files: (props.editData && props.editData.files) || []
-            }
-        )
+    console.log('looking for edit data', props.editData, props.editData && props.editData.id)
+    if (props.editData && props.editData.id) {
+        setValues(props.editData)
+        let date = dayjs(props.editData.date).format('YYYY-MM-DD')
+        setFieldValue('date', date)
     }
-    if (route.path == '/palestine-israel-timeline') {
+    if (route.path == '/history-timeline') {
         topic_tags.value = [
             { name: 'Palestine Israel Conflict', value: 'palestine-israel' },
             { name: 'Ottoman Empire', value: 'ottoman-empire' },
             { name: 'Mughal Empire', value: 'mughal-empire' },
         ]
         setFieldValue('visibility', '3')
-        setFieldValue('topic_tags', 'palestine-israel')
     }
 }
-
-const closeModal = () => {
+function closeModal() {
     resetForm()
     emits('close-modal')
 }
 // gs://asxvec.appspot.com/images/timeline/Screenshot 2023-09-04 115724.png
-const submit = async () => {
+async function submit() {
     submitLoader.value = true
     console.log(postForm.value)
-    if (!postForm.value.visibility) return
-    const resId = await submitTimeline(postForm.value).catch((err: any) => {
+    console.log('xx', controlledValues.value)
+    // if (!postForm.value.visibility) {window.alert("fill required fields") ;return;}
+    const resId = await submitTimeline(controlledValues.value).catch((err: any) => {
         console.error(err)
     })
     console.log("doc id", resId)
 
-    for (var [index, file] of postForm.value.files.entries()) {
+    for (var [index, file] of files.entries()) {
 
         var blob = new Blob([file.file], { type: file.type });
         let filename = resId + "_" + postForm.value.date + "_" + String(index + 1) + ".jpg"
@@ -279,20 +274,21 @@ const submit = async () => {
         var upload = await timelineImageUpload(newFile, { topic_tags: postForm.value.topic_tags, timeline_date: postForm.value.date })
         console.log('=', upload)
         if (!upload) { console.error("upload failed"); return; }
-        postForm.value.files[index] = upload
+        files[index] = upload
     }
 
-    await updateFiles(resId, postForm.value.files).catch((error) => console.error(error))
+    await updateFiles(resId, files).catch((error) => console.error(error))
     submitLoader.value = false
     closeModal()
-    // closeModal()
 }
 
 async function handleFileChange(event: any) {
-    let files: File[] = event.target.files;
-    for (let item of files) {
-        postForm.value.files.push({ file: item, file_url: null })
+    let _files: File[] = event.target.files;
+    for (let item of _files) {
+        // postForm.value.files.push({ file: item, file_url: null })
+        files.push({ file: item, file_url: null })
+        console.log(item)
     }
-    console.log(postForm.value.files.length)
+    console.log(files.length)
 }
 </script>

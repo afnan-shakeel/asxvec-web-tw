@@ -12,7 +12,7 @@ async function testAdd() {
 
 async function addPost(data: any, user: any = null) {
     try {
-
+        console.log('x', data, user)
         if (data.id) {
             const postRef = await setDoc(doc(db, "posts", data.id),
                 {
@@ -61,6 +61,7 @@ async function getPosts() {
         const dateTimestampField = doc?.get("created_at");
         if (dateTimestampField) {
             const date = new Date(dateTimestampField.seconds * 1000);
+            console.log(doc.id, " => ", date);
             obj = { ...obj, "created_at": date }
         }
         res.push(obj)

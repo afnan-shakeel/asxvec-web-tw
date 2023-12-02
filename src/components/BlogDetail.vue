@@ -18,7 +18,7 @@
       </div>
       <div class="flex items-center gap-x-4 text-xs">
 
-        <time :datetime="post.datetime" class="text-gray-500">{{ post.created_at == '' && 'Mar 16, 2020'
+        <time :datetime="post.datetime" class="text-gray-500">{{ post.neat_date || ''
         }}</time>
         <a :href="'#'"
           class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">{{
@@ -45,7 +45,7 @@
         </div>
       </div>
       <div>
-        <BlogComments :post-x="{id: 1}"></BlogComments>
+        <!-- <BlogComments :post-x="{id: 1}"></BlogComments> -->
       </div>
     </article>
   </div>

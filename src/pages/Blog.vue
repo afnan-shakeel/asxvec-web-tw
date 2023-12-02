@@ -13,7 +13,7 @@
                 <button @click="setOpenForm(true)" type="button"
                     class="px-4 py-1.5 text-sm font-medium rounded-md ring-sky-900 dark:ring-black hover:ring-sky-600 dark:hover:ring-black ring-2 bg-sky-200  hover:bg-sky-600 bg-opacity-30 text-sky-900 dark:bg-opacity-10 dark:text-gray-300 dark:hover:bg-black hover:text-white dark:hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                     Write a New Post</button>
-                <button @click="test()" type="button"
+                <button v-if="false" @click="test()" type="button"
                     class="px-4 py-1.5 text-sm font-medium rounded-md ring-sky-900 dark:ring-black hover:ring-sky-600 dark:hover:ring-black ring-2 bg-sky-200  hover:bg-sky-600 bg-opacity-30 text-sky-900 dark:bg-opacity-10 dark:text-gray-300 dark:hover:bg-black hover:text-white dark:hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                     TEST</button>
             </div>
@@ -27,8 +27,8 @@
                     </div>
                     <div class="flex items-center gap-x-4 text-xs">
 
-                        <!-- <time :datetime="post.datetime" class="text-gray-500 dark:text-gray-400">{{ post.created_at
-                        }}</time> -->
+                        <time :datetime="post.datetime" class="text-gray-500 dark:text-gray-400">{{ post.neat_date
+                        }}</time>
                         <a :href="'#'"
                             class="relative z-10 rounded-full font-medium px-3 py-1.5 bg-sky-700 text-white hover:bg-sky-200 hover:text-black dark:bg-black dark:text-gray-300 ">{{
                                 post.topic_tags }}</a>
@@ -115,6 +115,8 @@ import {
 // const router = useRouter()
 import { getPosts, testAdd } from '../services/post.db';
 import { getUserById } from '../services/user.db'
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+dayjs.extend(advancedFormat)
 
 const props = defineProps(["accountMeta"])
 const isOpenBlog = ref(false)
@@ -146,9 +148,9 @@ const fetchPosts = async () => {
     if (postsRes && postsRes.length !== 0) {
         blogs.value = postsRes.filter((x: any) => String(x.visibility) === visibility.value)
         blogs.value.forEach(async (x: any) => {
-            let date = dayjs(x.date)
-            let formatDate = date.format('MMMM D[o], YYYY')
-            x.created_at = formatDate
+            let date = dayjs(x.created_at)
+            let formatDate = date.format('MMMM Do, YYYY')
+            x.neat_date = formatDate
             let user = await getUserById(x.user.id)
             x.user = user
         })
