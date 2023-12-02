@@ -102,14 +102,14 @@
                   To: "transform opacity-0 scale-95"
               -->
                 <div v-if="settingsMenu"
-                  class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  class="absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                   <!-- Active: "bg-gray-100", Not Active: "" -->
                   <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
                     id="user-menu-item-0">Your Profile</a>
                   <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
                     id="user-menu-item-1">Settings</a>
-                  <a href="#" @click="_signOut()" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                  <a @click="_signOut()" class="cursor-pointer block px-4 py-2 text-sm text-gray-700" role="menuitem"
                     tabindex="-1" id="user-menu-item-2">Sign out</a>
                 </div>
               </div>
@@ -171,7 +171,7 @@
               <img v-if="darkMode == 'true'" width="30" height="30" src="/light_ship.svg" alt="light-ship" />
             </button>
           </div>
-          <div v-if="settingsMenu" class="mt-3 space-y-1 px-2">
+          <div v-if="settingsMenu" class="mt-3 space-y-1 px-2 z-10">
             <a href="#"
               class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
               Profile</a>
@@ -187,7 +187,7 @@
 
     <header class="bg-[#f0f9ff] bg-opacity-50 dark:bg-black ">
       <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold tracking-tight text-sky-900 dark:text-green-950">{{ pageHeader }}</h1>
+        <!-- <h1 class="text-3xl font-bold tracking-tight text-sky-900 dark:text-green-950">{{ pageHeader }}</h1> -->
       </div>
     </header>
     <main class="bg-[#f0f9ff] bg-opacity-50 dark:bg-gradient-to-br dark:from-black dark:to-green-950">
@@ -230,7 +230,7 @@ const menusList = ref([
     id: 1,
     title: "Profile",
     isActive: false,
-    to: "/profile"
+    to: "/"
   },
   {
     id: 3,
@@ -246,9 +246,9 @@ const menusList = ref([
   },
   {
     id: 5,
-    title: "Reports",
+    title: "Works",
     isActive: false,
-    to: "/reports",
+    to: "/works",
   },
   {
     id: 2,
@@ -266,6 +266,12 @@ const menusList = ref([
     title: "Time Line",
     isActive: false,
     to: "/time-line",
+  },
+  {
+    id: 7,
+    title: "Contact",
+    isActive: false,
+    to: "/contact",
   },
 ])
 
@@ -286,7 +292,7 @@ const _signOut = () => {
   signOut(auth).then((res: any) => {
     console.log(res)
     window.sessionStorage.clear()
-    router.push('/')
+    router.push('/login')
   }).catch((error: any) => {
     console.error(error)
   });

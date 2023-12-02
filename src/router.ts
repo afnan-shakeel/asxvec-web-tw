@@ -8,14 +8,20 @@ export default createRouter({
   routes: [
     {
       name: 'Login',
-      path: '/',
+      path: '/login',
       component: Login,
       meta: { layout: LoginLayout }
     },
     {
       name: 'Profile',
-      path: '/profile',
+      path: '/',
       component: () => import('./pages/Profile.vue'),
+      meta: { layout: SessionLayout }
+    },
+    {
+      name: 'Contact',
+      path: '/contact',
+      component: ()=> import('./pages/Contact.vue'),
       meta: { layout: SessionLayout }
     },
     {
@@ -52,6 +58,12 @@ export default createRouter({
       name: 'History Timeline',
       path: '/history-timeline',
       component: ()=> import('./pages/PalestineIsrael.vue'),
+      meta: { layout: SessionLayout }
+    },
+    {
+      name: 'Calender',
+      path: '/calender',
+      component: ()=> import('./pages/Calender.vue'),
       meta: { layout: SessionLayout }
     },
 
