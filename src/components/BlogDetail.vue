@@ -62,7 +62,7 @@
 </template>
   
 <script setup lang="ts">
-import BlogComments from './BlogComments.vue'
+// import BlogComments from './BlogComments.vue'
 import { ref, onMounted } from 'vue'
 const profileImage = ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
 
