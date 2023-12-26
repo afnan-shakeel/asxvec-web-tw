@@ -134,7 +134,7 @@
                         </p>
 
                         <dl class="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
-                            <div v-for="feature in features" :key="feature.name" class="border-t border-gray-200 pt-4">
+                            <div v-for="feature in serviceList" :key="feature.name" class="border-t border-gray-200 pt-4">
                                 <dt class="font-medium text-gray-900">{{ feature.name }}</dt>
                                 <dd class="mt-2 text-sm text-gray-500">{{ feature.description }}</dd>
                             </div>
@@ -260,18 +260,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import SocialMediaHandlers from '../components/SocialMediaHandlers.vue';
+import {getWorkServices} from '../services/workServices.db.ts'
+onMounted(() => {
+    fetchWorkServices()
+})
 
+const serviceList = ref()
+async function fetchWorkServices()  {
+    serviceList.value = await getWorkServices()
+    console.log(serviceList.value)
+}
 
-const features = [
-    { name: 'Web Development', description: 'Skilled in both backend and frontend web technologies like Node.js, Django, Angular, Vue.js' },
-    { name: 'UI/UX', description: 'Practice in using UI utilites and frameworks like Bootstrap, Vuetify, Material Design and Tailwind CSS' },
-    { name: 'Data Science', description: 'Manipulalte and analyse datasets using Python. Manintain large datasets. Perform Text Classification and Clustering.' },
-    { name: 'Web crawling and automation', description: 'Perform web scraping tasks and web automation.' },
-    { name: 'Cloud Services', description: 'Use of various cloud services from AWS, Azure and Google. Developing Image to Text Analysis tools and Speech to Text or Text to Speech (TTS and STT) tools.' },
-    { name: 'Host/Deploy', description: 'Firebase deployment and hosting for small applications. Amazon EC2 for heavy applications and for easy project management' },
-]
+// const features = [
+//     { name: 'Web Development', description: 'Skilled in both backend and frontend web technologies like Node.js, Django, Angular, Vue.js' },
+//     { name: 'UI/UX', description: 'Practice in using UI utilites and frameworks like Bootstrap, Vuetify, Material Design and Tailwind CSS' },
+//     { name: 'Data Science', description: 'Manipulalte and analyse datasets using Python. Manintain large datasets. Perform Text Classification and Clustering.' },
+//     { name: 'Web crawling and automation', description: 'Perform web scraping tasks and web automation.' },
+//     { name: 'Cloud Services', description: 'Use of various cloud services from AWS, Azure and Google. Developing Image to Text Analysis tools and Speech to Text or Text to Speech (TTS and STT) tools.' },
+//     { name: 'Host/Deploy', description: 'Firebase deployment and hosting for small applications. Amazon EC2 for heavy applications and for easy project management' },
+//     { name: 'Mobile Apps', description: 'PWA (Progressive Web Apps) using frameworks like Angular and Vue.js \n AppSheet development, a low code mobile application tool by Google' },
+// ]
+
 // const contentImage =  ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
 const serviceContentRef = ref()
 function scrollToServiceContent() {
