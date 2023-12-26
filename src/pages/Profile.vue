@@ -237,17 +237,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Dialog, DialogPanel } from '@headlessui/vue'
-import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 
-const navigation = [
-    { name: 'Product', href: '#' },
-    { name: 'Features', href: '#' },
-    { name: 'Marketplace', href: '#' },
-    { name: 'Company', href: '#' },
-]
 
-const mobileMenuOpen = ref(false)
+
 const features = [
     { name: 'Web Development', description: 'Skilled in both backend and frontend web technologies like Node.js, Django, Angular, Vue.js' },
     { name: 'UI/UX', description: 'Practice in using UI utilites and frameworks like Bootstrap, Vuetify, Material Design and Tailwind CSS' },

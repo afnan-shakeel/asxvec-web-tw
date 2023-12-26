@@ -167,8 +167,8 @@
               class="relative ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
               <span class="absolute -inset-1.5"></span>
               <span class="sr-only">Dark Mode</span>
-              <img v-if="darkMode == 'false'" width="30" height="30" src="/dark_ship.svg" alt="dark-ship" />
-              <img v-if="darkMode == 'true'" width="30" height="30" src="/light_ship.svg" alt="light-ship" />
+              <img v-if="darkMode == 'false'" width="30" height="30" src="/images/dark_ship.svg" alt="dark-ship" />
+              <img v-if="darkMode == 'true'" width="30" height="30" src="/images/light_ship.svg" alt="light-ship" />
             </button>
           </div>
           <div v-if="settingsMenu" class="mt-3 space-y-1 px-2 z-10">
