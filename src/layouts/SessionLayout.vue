@@ -8,7 +8,7 @@
   ```
 -->
   <div class="min-h-full">
-    <nav class="bg-white dark:bg-black drop-shadow-md">
+    <nav class="bg-white dark:bg-black z-50">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center">
@@ -74,8 +74,8 @@
                 <svg v-if="darkMode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
                 </svg> -->
-                <img v-if="!darkMode" width="23" height="23" src="/dark_ship.svg" alt="dark-ship" />
-                <img v-if="darkMode" width="23" height="23" src="/light_ship.svg" alt="light-ship" />
+                <img v-if="!darkMode" width="23" height="23" src="/images/dark_ship.svg" alt="dark-ship" />
+                <img v-if="darkMode" width="23" height="23" src="/images/light_ship.svg" alt="light-ship" />
 
               </button>
 
@@ -185,13 +185,13 @@
       </div>
     </nav>
 
-    <header class="bg-[#f0f9ff] bg-opacity-50 dark:bg-black ">
+    <!-- <header class="bg-[#f0f9ff] bg-opacity-50 dark:bg-black ">
       <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <!-- <h1 class="text-3xl font-bold tracking-tight text-sky-900 dark:text-green-950">{{ pageHeader }}</h1> -->
+        <h1 class="text-3xl font-bold tracking-tight text-sky-900 dark:text-green-950">{{ pageHeader }}</h1>
       </div>
-    </header>
+    </header> -->
     <main class="bg-[#f0f9ff] bg-opacity-50 dark:bg-gradient-to-br dark:from-black dark:to-green-950">
-      <div class="min-h-screen mx-auto max-w-7xl py-4 sm:px-6 lg:px-6">
+      <div class="min-h-screen min-w-full">
         <!-- Your content -->
         <router-view :accountMeta="accountMeta"></router-view>
       </div>
@@ -222,6 +222,12 @@ const darkMode = ref()
 onMounted(() => {
   darkMode.value = window.sessionStorage.getItem('dark-mode') || 'false'
   setDarkMode()
+  menusList.value.push({
+    id: 99,
+    title: "Test",
+    isActive: false,
+    to: "/test",
+  })
 })
 const settingsMenu = ref(false)
 const mobileMenu = ref(false)

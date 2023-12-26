@@ -2,10 +2,17 @@ import { createRouter, createWebHistory } from 'vue-router'
 import SessionLayout from './layouts/SessionLayout.vue'
 import LoginLayout from './layouts/LoginLayout.vue'
 import Login from './pages/Login.vue'
+import Test from './pages/Test.vue'
 
 export default createRouter({
   history: createWebHistory(),
   routes: [
+    {
+      name: 'Test',
+      path: '/test',
+      component: Test,
+      meta: { layout: LoginLayout }
+    },
     {
       name: 'Login',
       path: '/login',
