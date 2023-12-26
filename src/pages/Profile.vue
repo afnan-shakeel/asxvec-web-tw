@@ -48,7 +48,7 @@
       </Dialog>
     </header> -->
 
-        <div class="relative isolate px-6 pt-14 lg:px-8">
+        <div class="relative isolate px-6 py-24 sm:pt-14 sm:py-10 md:py-10 lg:px-8 lg:py-20">
             <div class="absolute inset-x-0 -top-40 -z-50 transform-gpu overflow-hidden blur-3xl sm:-top-80"
                 aria-hidden="true">
                 <div v-if="false"
@@ -86,8 +86,8 @@
 
             <!-- about me -->
             <div ref="aboutMeRef">
-                <div class=" mx-auto px-6 py-10">
-                    <div class="mx-auto max-w-4xl grid grid-cols-1 gap-x-8 lg:grid-cols-3 ">
+                <div class=" mx-auto px-6 mt-2 py-10 sm:py-10 md:py-10 md:px-8 lg:py-20">
+                    <div class="mx-auto max-w-4xl grid grid-cols-1 sm:gap-x-8 lg:grid-cols-3 ">
                         <div class="flex justify-center mb-6">
                             <img class="w-[24rem] rounded-xl bg-gray-900 shadow-xl ring-8 ring-gray-400/10  "
                                 src="https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg" alt="" />
@@ -272,7 +272,6 @@ const features = [
     { name: 'Cloud Services', description: 'Use of various cloud services from AWS, Azure and Google. Developing Image to Text Analysis tools and Speech to Text or Text to Speech (TTS and STT) tools.' },
     { name: 'Host/Deploy', description: 'Firebase deployment and hosting for small applications. Amazon EC2 for heavy applications and for easy project management' },
 ]
-
 // const contentImage =  ref('https://asxvec4storage.blob.core.windows.net/blog/profile_pic.jpg')
 const serviceContentRef = ref()
 function scrollToServiceContent() {
