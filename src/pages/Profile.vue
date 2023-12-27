@@ -59,9 +59,10 @@
                 <div class="hidden sm:mb-8 sm:flex sm:justify-center">
                     <div
                         class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                        Announcing myself, <span class="font-medium">AFNAN SHAKEEL</span>. <a @click="scrollToServiceContent()"
-                            class="font-semibold cursor-pointer text-indigo-600"><span class="absolute inset-0"
-                                aria-hidden="true" />My Services! <span aria-hidden="true">&rarr;</span></a>
+                        Announcing myself, <span class="font-medium">AFNAN SHAKEEL</span>. <a
+                            @click="scrollToServiceContent()" class="font-semibold cursor-pointer text-indigo-600"><span
+                                class="absolute inset-0" aria-hidden="true" />My Services! <span
+                                aria-hidden="true">&rarr;</span></a>
                     </div>
                 </div>
                 <div class="text-center">
@@ -73,7 +74,8 @@
                         <a href="/contact"
                             class="rounded-md cursor-pointer bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                             Hire Me</a>
-                        <a @click="scrollToworkContent()" class="text-sm cursor-pointer font-semibold leading-6 text-gray-900">
+                        <a @click="scrollToworkContent()"
+                            class="text-sm cursor-pointer font-semibold leading-6 text-gray-900">
                             My Works! <span aria-hidden="true">→</span></a>
                     </div>
                 </div>
@@ -162,14 +164,64 @@
 
             <!-- work/projects -->
             <div class="" ref="workContentRef">
-                <div
-                    class="mx-auto grid max-w-2xl grid-cols-1 items-center gap-x-8 gap-y-16 px-4 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
+                <div class="mx-auto max-w-2xl  py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:px-8">
                     <div>
                         <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Work Projects
                         </h2>
                         <p class="mt-4 text-gray-500">IN DEVELOPMENT. COMING SOON!
                         </p>
+                        <div
+                            class="max-w-4xl lg:max-w-7xl md:max-w-6xl grid  grid-cols-1 gap-x-6 gap-y-6 md:grid-cols-2 lg:grid-cols-3 ">
+                            <div class=" border rounded-md p-2 col-span-1 sm:w-96 md:w-72 lg:w-72 xl:96"
+                                v-for="item in repos">
+                                <div class="grid grid-cols-1 min-h-full">
+                                    <div class="">
+                                        <div class="font-medium text-gray-900 py-1">{{ item.name }}</div>
+                                        <div class="text-sm text-gray-500">{{ item.description }}</div>
+                                        <div  v-if="item.homepage"
+                                            class=" flex  py-2"><svg aria-hidden="true" height="14"
+                                                viewBox="0 0 16 16" version="1.1" width="14" data-view-component="true"
+                                                class="octicon octicon-link">
+                                                <path
+                                                    d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">
+                                                </path>
+                                            </svg>
+                                            <a target="_blank" class="-mt-1 mx-1 text-sm text-gray-500 hover:text-indigo-500"
+                                                :href="item.homepage">{{item.homepage}}</a>
+                                        </div>
+                                    </div>
 
+                                    <div class="self-end">
+                                        <div
+                                            class="flex justify-between border-t py-2 max-h-fit border-gray-300 mb-2 bottom-3">
+                                            <a
+                                                class="flex  ring-1 px-2 py-0.5 ring-black rounded-sm mx-2 min-w-fit hover:bg-gray-800 hover:text-white">
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    class=" text-red-500" viewBox="0 0 30 30">
+                                                    <path
+                                                        d="M15,3C8.373,3,3,8.373,3,15c0,5.623,3.872,10.328,9.092,11.63C12.036,26.468,12,26.28,12,26.047v-2.051 c-0.487,0-1.303,0-1.508,0c-0.821,0-1.551-0.353-1.905-1.009c-0.393-0.729-0.461-1.844-1.435-2.526 c-0.289-0.227-0.069-0.486,0.264-0.451c0.615,0.174,1.125,0.596,1.605,1.222c0.478,0.627,0.703,0.769,1.596,0.769 c0.433,0,1.081-0.025,1.691-0.121c0.328-0.833,0.895-1.6,1.588-1.962c-3.996-0.411-5.903-2.399-5.903-5.098 c0-1.162,0.495-2.286,1.336-3.233C9.053,10.647,8.706,8.73,9.435,8c1.798,0,2.885,1.166,3.146,1.481C13.477,9.174,14.461,9,15.495,9 c1.036,0,2.024,0.174,2.922,0.483C18.675,9.17,19.763,8,21.565,8c0.732,0.731,0.381,2.656,0.102,3.594 c0.836,0.945,1.328,2.066,1.328,3.226c0,2.697-1.904,4.684-5.894,5.097C18.199,20.49,19,22.1,19,23.313v2.734 c0,0.104-0.023,0.179-0.035,0.268C23.641,24.676,27,20.236,27,15C27,8.373,21.627,3,15,3z">
+                                                    </path>
+                                                </svg>
+                                                <span class=" text-nowrap">Clone Repo</span>
+                                            </a>
+                                            <a :href="item.html_url" target="_blank"
+                                                class="flex ring-1  px-2 py-0.5 ring-black rounded-sm mx-2  min-w-fit text-nowrap hover:bg-gray-800 hover:text-white">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    viewBox="0 0 30 30">
+                                                    <path
+                                                        d="M15,3C8.373,3,3,8.373,3,15c0,5.623,3.872,10.328,9.092,11.63C12.036,26.468,12,26.28,12,26.047v-2.051 c-0.487,0-1.303,0-1.508,0c-0.821,0-1.551-0.353-1.905-1.009c-0.393-0.729-0.461-1.844-1.435-2.526 c-0.289-0.227-0.069-0.486,0.264-0.451c0.615,0.174,1.125,0.596,1.605,1.222c0.478,0.627,0.703,0.769,1.596,0.769 c0.433,0,1.081-0.025,1.691-0.121c0.328-0.833,0.895-1.6,1.588-1.962c-3.996-0.411-5.903-2.399-5.903-5.098 c0-1.162,0.495-2.286,1.336-3.233C9.053,10.647,8.706,8.73,9.435,8c1.798,0,2.885,1.166,3.146,1.481C13.477,9.174,14.461,9,15.495,9 c1.036,0,2.024,0.174,2.922,0.483C18.675,9.17,19.763,8,21.565,8c0.732,0.731,0.381,2.656,0.102,3.594 c0.836,0.945,1.328,2.066,1.328,3.226c0,2.697-1.904,4.684-5.894,5.097C18.199,20.49,19,22.1,19,23.313v2.734 c0,0.104-0.023,0.179-0.035,0.268C23.641,24.676,27,20.236,27,15C27,8.373,21.627,3,15,3z">
+                                                    </path>
+                                                </svg>
+                                                <span class=" text-nowrap">View Repo</span>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -262,17 +314,23 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import SocialMediaHandlers from '../components/SocialMediaHandlers.vue';
-import {getWorkServices} from '../services/workServices.db.ts'
+import { getWorkServices } from '../services/workServices.db.ts'
+import { getRepos } from '../services/github.repos.ts';
 onMounted(() => {
-    fetchWorkServices()
+    fetchWorkServices();
+    fetchRepos();
 })
 
 const serviceList = ref()
-async function fetchWorkServices()  {
+async function fetchWorkServices() {
     serviceList.value = await getWorkServices()
     console.log(serviceList.value)
 }
 
+const repos = ref()
+async function fetchRepos() {
+    repos.value = await getRepos();
+}
 // const features = [
 //     { name: 'Web Development', description: 'Skilled in both backend and frontend web technologies like Node.js, Django, Angular, Vue.js' },
 //     { name: 'UI/UX', description: 'Practice in using UI utilites and frameworks like Bootstrap, Vuetify, Material Design and Tailwind CSS' },
